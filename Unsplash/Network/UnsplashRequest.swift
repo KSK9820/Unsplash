@@ -28,16 +28,16 @@ extension UnsplashRequest: HTTPRequestable {
             return .get
         }
     }
-    var path: [String]? {
+    var path: [String] {
         switch self {
         case .main:
-            return ["photos"]
+            return ["/photos"]
         case .random:
-            return ["photos", "random"]
+            return ["/photos", "random"]
         case .detail(let id):
-            return ["photos", id]
+            return ["/photos", id]
         case .search:
-            return ["search", "photos"]
+            return ["/search", "photos"]
         }
     }
     var queries: [URLQueryItem]? {
