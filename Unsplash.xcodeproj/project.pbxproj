@@ -15,6 +15,7 @@
 		538F2A5F2B8F8A68006A57BF /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538F2A5E2B8F8A68006A57BF /* HTTPMethod.swift */; };
 		538F2A642B8F8A6E006A57BF /* HTTPRequestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538F2A622B8F8A6E006A57BF /* HTTPRequestable.swift */; };
 		538F2A662B8F8B61006A57BF /* UnsplashRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538F2A652B8F8B61006A57BF /* UnsplashRequest.swift */; };
+		53AC5EB42B95CD4F00D65440 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 53AC5EB32B95CA0100D65440 /* Secrets.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		538F2A5E2B8F8A68006A57BF /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		538F2A622B8F8A6E006A57BF /* HTTPRequestable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPRequestable.swift; sourceTree = "<group>"; };
 		538F2A652B8F8B61006A57BF /* UnsplashRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnsplashRequest.swift; sourceTree = "<group>"; };
+		53AC5EB32B95CA0100D65440 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 				538F2A4A2B8F8603006A57BF /* Assets.xcassets */,
 				538F2A4C2B8F8603006A57BF /* LaunchScreen.storyboard */,
 				538F2A4F2B8F8603006A57BF /* Info.plist */,
+				53AC5EB32B95CA0100D65440 /* Secrets.xcconfig */,
 			);
 			path = Unsplash;
 			sourceTree = "<group>";
@@ -149,6 +152,7 @@
 			files = (
 				538F2A4E2B8F8603006A57BF /* LaunchScreen.storyboard in Resources */,
 				538F2A4B2B8F8603006A57BF /* Assets.xcassets in Resources */,
+				53AC5EB42B95CD4F00D65440 /* Secrets.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,6 +307,7 @@
 		};
 		538F2A532B8F8603006A57BF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 53AC5EB32B95CA0100D65440 /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
