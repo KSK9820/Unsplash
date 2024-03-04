@@ -85,5 +85,5 @@ fastlane/test_output
 
 iOSInjectionProject/
 echo .DS_Store >> .gitignore
-
+*.xcconfig
 # End of https://www.toptal.com/developers/gitignore/api/swift
