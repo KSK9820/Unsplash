@@ -19,6 +19,7 @@
 		53AC5EB92B95DB5000D65440 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AC5EB82B95DB5000D65440 /* NetworkManager.swift */; };
 		53AC5EBB2B95DB5F00D65440 /* NetworkSessionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AC5EBA2B95DB5F00D65440 /* NetworkSessionProtocol.swift */; };
 		53B170752B98635D00CF18BE /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B170742B98635D00CF18BE /* NetworkError.swift */; };
+		53B170782B986CB100CF18BE /* MainPhotoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B170772B986CB100CF18BE /* MainPhotoDTO.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		53AC5EB82B95DB5000D65440 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		53AC5EBA2B95DB5F00D65440 /* NetworkSessionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSessionProtocol.swift; sourceTree = "<group>"; };
 		53B170742B98635D00CF18BE /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		53B170772B986CB100CF18BE /* MainPhotoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPhotoDTO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 		538F2A402B8F8602006A57BF /* Unsplash */ = {
 			isa = PBXGroup;
 			children = (
+				53B170762B986C8600CF18BE /* DTO */,
 				538F2A602B8F8A6E006A57BF /* Network */,
 				538F2A5D2B8F8A68006A57BF /* Enum */,
 				538F2A412B8F8602006A57BF /* AppDelegate.swift */,
@@ -107,6 +110,14 @@
 				538F2A652B8F8B61006A57BF /* UnsplashRequest.swift */,
 			);
 			path = HTTPRequestBuilder;
+			sourceTree = "<group>";
+		};
+		53B170762B986C8600CF18BE /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				53B170772B986CB100CF18BE /* MainPhotoDTO.swift */,
+			);
+			path = DTO;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -181,6 +192,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				538F2A5F2B8F8A68006A57BF /* HTTPMethod.swift in Sources */,
+				53B170782B986CB100CF18BE /* MainPhotoDTO.swift in Sources */,
 				538F2A462B8F8602006A57BF /* ViewController.swift in Sources */,
 				538F2A422B8F8602006A57BF /* AppDelegate.swift in Sources */,
 				53AC5EB92B95DB5000D65440 /* NetworkManager.swift in Sources */,
