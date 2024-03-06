@@ -15,6 +15,8 @@ enum UnsplashRequest {
 }
 
 extension UnsplashRequest: HTTPRequestable {
+    static let apiKey = Bundle.main.infoDictionary?["UNSPLASH_KEY"] as! String
+    
     var urlString: String { "https://api.unsplash.com" }
     var httpMethod: HTTPMethod {
         switch self {
@@ -55,7 +57,7 @@ extension UnsplashRequest: HTTPRequestable {
     var contentType: [String : String]? {
         switch self {
         case .main:
-            return nil
+            return ["Authorization" : "Client-ID \(Self.apiKey)"]
         case .random:
             return nil
         case .detail:

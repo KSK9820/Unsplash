@@ -19,6 +19,7 @@ protocol HTTPRequestable {
 
 extension HTTPRequestable {
     func asURLRequest() -> URLRequest? {
+        
         guard var components = URLComponents(string: urlString) else { return nil }
         components.path = path.joined(separator: "/")
         if let queries = queries {
