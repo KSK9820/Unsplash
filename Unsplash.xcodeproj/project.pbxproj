@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		538982272B99A2E9009E6E5A /* JSONConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538982262B99A2E9009E6E5A /* JSONConverter.swift */; };
+		538982332B99B470009E6E5A /* MainPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538982322B99B470009E6E5A /* MainPhotoViewController.swift */; };
+		538982352B99B75A009E6E5A /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538982342B99B75A009E6E5A /* TabBarViewController.swift */; };
 		538F2A422B8F8602006A57BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538F2A412B8F8602006A57BF /* AppDelegate.swift */; };
 		538F2A442B8F8602006A57BF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538F2A432B8F8602006A57BF /* SceneDelegate.swift */; };
 		538F2A462B8F8602006A57BF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538F2A452B8F8602006A57BF /* ViewController.swift */; };
@@ -25,6 +27,8 @@
 
 /* Begin PBXFileReference section */
 		538982262B99A2E9009E6E5A /* JSONConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONConverter.swift; sourceTree = "<group>"; };
+		538982322B99B470009E6E5A /* MainPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPhotoViewController.swift; sourceTree = "<group>"; };
+		538982342B99B75A009E6E5A /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		538F2A3E2B8F8602006A57BF /* Unsplash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Unsplash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		538F2A412B8F8602006A57BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		538F2A432B8F8602006A57BF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +65,23 @@
 			path = Utility;
 			sourceTree = "<group>";
 		};
+		5389822E2B99AB13009E6E5A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5389822F2B99AB16009E6E5A /* MainPhotoView */,
+				538982342B99B75A009E6E5A /* TabBarViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		5389822F2B99AB16009E6E5A /* MainPhotoView */ = {
+			isa = PBXGroup;
+			children = (
+				538982322B99B470009E6E5A /* MainPhotoViewController.swift */,
+			);
+			path = MainPhotoView;
+			sourceTree = "<group>";
+		};
 		538F2A352B8F8602006A57BF = {
 			isa = PBXGroup;
 			children = (
@@ -80,6 +101,7 @@
 		538F2A402B8F8602006A57BF /* Unsplash */ = {
 			isa = PBXGroup;
 			children = (
+				5389822E2B99AB13009E6E5A /* View */,
 				538982252B99A2BF009E6E5A /* Utility */,
 				53B170762B986C8600CF18BE /* DTO */,
 				538F2A602B8F8A6E006A57BF /* Network */,
@@ -212,6 +234,8 @@
 				538F2A642B8F8A6E006A57BF /* HTTPRequestable.swift in Sources */,
 				53B170752B98635D00CF18BE /* NetworkError.swift in Sources */,
 				53AC5EBB2B95DB5F00D65440 /* NetworkSessionProtocol.swift in Sources */,
+				538982352B99B75A009E6E5A /* TabBarViewController.swift in Sources */,
+				538982332B99B470009E6E5A /* MainPhotoViewController.swift in Sources */,
 				538F2A662B8F8B61006A57BF /* UnsplashRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
