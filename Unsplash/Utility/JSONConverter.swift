@@ -8,11 +8,12 @@
 import Foundation
 
 struct JSONConverter {
-    static func decode<T: Decodable>(type: T.Type, from data: Data) throws -> T? {
+    private let decoder = JSONDecoder()
+    
+    func decode<T: Decodable>(type: T.Type, from data: Data) throws -> T? {
         
-        let decoder = JSONDecoder()
-        let decodedData = try decoder.decode(type, from: data)
-        
+        let decodedData = try decoder.decode(T.self, from: data)
+
         return decodedData
     }
 }
