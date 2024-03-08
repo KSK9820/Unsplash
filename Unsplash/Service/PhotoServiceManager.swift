@@ -1,5 +1,5 @@
 //
-//  PhotoService.swift
+//  PhotoServiceManager.swift
 //  Unsplash
 //
 //  Created by 김수경 on 2024/03/07.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class PhotoService {
+final class PhotoServiceManager {
     private let networkManager: NetworkSessionProtocol
     private let converter = JSONConverter()
     
