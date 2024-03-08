@@ -15,11 +15,12 @@ final class PhotoService {
         self.networkManager = networkManager
     }
     
-    func getPhoto<T: Decodable>(request: URLRequest, completion: @escaping (Result<[T], Error>) -> Void) {
+    func getPhotoList<T: Decodable>(request: URLRequest, completion: @escaping (Result<T, Error>) -> Void) {
+        
         networkManager.dataTask(with: request) { [weak self] result in
             switch result {
             case .success(let data):
-                guard let decodedData = try? self?.converter.decode(type: [T].self, from: data) else {
+                guard let decodedData = try? self?.converter.decode(type: T.self, from: data) else {
                     return completion(.failure(NetworkError.decodeError))
                 }
                 completion(.success(decodedData))
@@ -28,6 +29,16 @@ final class PhotoService {
             }
         }
     }
+    
+    func getPhoto(request: URLRequest, completion: @escaping (Result<Data, Error>) -> Void) {
+        
+        networkManager.dataTask(with: request) { result in
+            switch result {
+            case .success(let data):
+                completion(.success(data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 }
-
-
