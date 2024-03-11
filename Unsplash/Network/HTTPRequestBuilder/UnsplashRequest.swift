@@ -19,17 +19,14 @@ extension UnsplashRequest: HTTPRequestable {
     
     var urlString: String { "https://api.unsplash.com" }
     var httpMethod: HTTPMethod {
+        var method = HTTPMethod.get
         switch self {
-        case .main:
-            return .get
-        case .random:
-            return .get
-        case .detail:
-            return .get
-        case .search:
-            return .get
+        default:
+            break
         }
+        return method
     }
+    
     var path: [String] {
         switch self {
         case .main:
@@ -42,6 +39,7 @@ extension UnsplashRequest: HTTPRequestable {
             return ["/search", "photos"]
         }
     }
+    
     var queries: [URLQueryItem]? {
         switch self {
         case .main:
@@ -54,16 +52,13 @@ extension UnsplashRequest: HTTPRequestable {
             return nil
         }
     }
-    var contentType: [String : String]? {
+    
+    var httpHeaders: [String : String]? {
+        var headers = ["Authorization" : "Client-ID \(Self.apiKey)"]
         switch self {
-        case .main:
-            return ["Authorization" : "Client-ID \(Self.apiKey)"]
-        case .random:
-            return nil
-        case .detail:
-            return nil
-        case .search:
-            return nil
+        default:
+            break
         }
+        return headers
     }
 }

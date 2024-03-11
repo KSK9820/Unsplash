@@ -19,18 +19,28 @@ final class NetworkManager {
 // MARK: - protocol method
 
 extension NetworkManager: NetworkSessionProtocol {
-    func dataTask(with request: URLRequest, completion: @escaping (Result<Data, Error>) -> Void) {
+    func dataTask(with request: URLRequest, 
+                  completion: @escaping (Result<Data, Error>) -> Void) {
         
         let task = session.dataTask(with: request) { data, response, error in
             if let error = error {
-                return completion(.failure(NetworkError.unknownError(description: error.localizedDescription)))
+                let networkError = NetworkError.unknownError(description: error.localizedDescription)
+                
+                return completion(.failure(networkError))
             }
+            
             guard let httpResponse = response as? HTTPURLResponse else { return }
+            
             guard (200...299).contains(httpResponse.statusCode) else {
-                return completion(.failure(NetworkError.responseError(statusCode: httpResponse.statusCode)))
+                let responseError = NetworkError.responseError(statusCode: httpResponse.statusCode)
+                
+                return completion(.failure(responseError))
             }
+            
             guard let data = data else {
-                return completion(.failure(NetworkError.emptyDataError))
+                let emptyDataError = NetworkError.emptyDataError
+                
+                return completion(.failure(emptyDataError))
             }
             completion(.success(data))
         }

@@ -116,7 +116,6 @@
 				538982252B99A2BF009E6E5A /* Utility */,
 				53B170762B986C8600CF18BE /* DTO */,
 				538F2A602B8F8A6E006A57BF /* Network */,
-				538F2A5D2B8F8A68006A57BF /* Enum */,
 				538F2A412B8F8602006A57BF /* AppDelegate.swift */,
 				538F2A432B8F8602006A57BF /* SceneDelegate.swift */,
 				538F2A452B8F8602006A57BF /* ViewController.swift */,
@@ -140,6 +139,7 @@
 		538F2A602B8F8A6E006A57BF /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				538F2A5D2B8F8A68006A57BF /* Enum */,
 				53AC5EB52B95D86D00D65440 /* HTTPRequestBuilder */,
 				53AC5EB82B95DB5000D65440 /* NetworkManager.swift */,
 				53AC5EBA2B95DB5F00D65440 /* NetworkSessionProtocol.swift */,
