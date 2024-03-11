@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		537EA2242B9EFEEA006C4B59 /* ConvertError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537EA2232B9EFEEA006C4B59 /* ConvertError.swift */; };
 		538982272B99A2E9009E6E5A /* JSONConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538982262B99A2E9009E6E5A /* JSONConverter.swift */; };
 		538982332B99B470009E6E5A /* MainPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538982322B99B470009E6E5A /* MainPhotoViewController.swift */; };
 		538982352B99B75A009E6E5A /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538982342B99B75A009E6E5A /* TabBarViewController.swift */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		537EA2232B9EFEEA006C4B59 /* ConvertError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertError.swift; sourceTree = "<group>"; };
 		538982262B99A2E9009E6E5A /* JSONConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONConverter.swift; sourceTree = "<group>"; };
 		538982322B99B470009E6E5A /* MainPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPhotoViewController.swift; sourceTree = "<group>"; };
 		538982342B99B75A009E6E5A /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 			children = (
 				538F2A5E2B8F8A68006A57BF /* HTTPMethod.swift */,
 				53B170742B98635D00CF18BE /* NetworkError.swift */,
+				537EA2232B9EFEEA006C4B59 /* ConvertError.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 				538982392B99D941009E6E5A /* PhotoServiceManager.swift in Sources */,
 				538F2A442B8F8602006A57BF /* SceneDelegate.swift in Sources */,
 				538F2A642B8F8A6E006A57BF /* HTTPRequestable.swift in Sources */,
+				537EA2242B9EFEEA006C4B59 /* ConvertError.swift in Sources */,
 				53B170752B98635D00CF18BE /* NetworkError.swift in Sources */,
 				53AC5EBB2B95DB5F00D65440 /* NetworkSessionProtocol.swift in Sources */,
 				538982352B99B75A009E6E5A /* TabBarViewController.swift in Sources */,

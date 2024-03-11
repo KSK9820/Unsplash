@@ -8,6 +8,7 @@
 import Foundation
 
 final class PhotoServiceManager {
+    
     private let networkManager: NetworkSessionProtocol
     private let converter = JSONConverter()
     
@@ -21,7 +22,7 @@ final class PhotoServiceManager {
             switch result {
             case .success(let data):
                 guard let decodedData = try? self?.converter.decode(type: T.self, from: data) else {
-                    return completion(.failure(NetworkError.decodeError))
+                    return completion(.failure(ConvertError.decodeError))
                 }
                 
                 completion(.success(decodedData))
@@ -31,9 +32,14 @@ final class PhotoServiceManager {
         }
     }
     
-    // request가 아니라 url을 받아서 내부에서 request로 변환
-    func getPhoto(request: URLRequest, 
+    func getPhoto(urlString: String,
                   completion: @escaping (Result<Data, Error>) -> Void) {
+        guard let url = URL(string: urlString) else {
+            return completion(.failure(ConvertError.urlError))
+        }
+        
+        let request = URLRequest(url: url)
+        
         networkManager.dataTask(with: request) { result in
             switch result {
             case .success(let data):
@@ -43,4 +49,26 @@ final class PhotoServiceManager {
             }
         }
     }
+}
+
+
+// MARK: - UnsplashRequest 전용 메서드
+
+extension PhotoServiceManager {
+    
+    func getMainPhotoList(completion: @escaping (Result<[MainPhotoDTO], Error>) -> Void) {
+        guard let request = UnsplashRequest.main.asURLRequest() else {
+            return completion(.failure(ConvertError.urlRequestError))
+        }
+        
+        getPhotoList(request: request) { (result: Result<[MainPhotoDTO], Error>) in
+            switch result {
+            case .success(let data):
+                completion(.success(data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
 }
