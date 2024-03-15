@@ -16,7 +16,7 @@ final class PhotoServiceManager {
         self.networkManager = networkManager
     }
     
-    func getPhotoList<T: Decodable>(request: URLRequest, 
+    func getPhotoList<T: Decodable>(request: URLRequest,
                                     completion: @escaping (Result<T, Error>) -> Void) {
         networkManager.dataTask(with: request) { [weak self] result in
             switch result {
@@ -34,6 +34,10 @@ final class PhotoServiceManager {
     
     func getPhoto(urlString: String,
                   completion: @escaping (Result<Data, Error>) -> Void) {
+        if let cachedData = ImageDataCacheManager.shared.object(key: urlString) {
+            return completion(.success(Data(cachedData)))
+        }
+        
         guard let url = URL(string: urlString) else {
             return completion(.failure(ConvertError.urlError))
         }
@@ -43,12 +47,14 @@ final class PhotoServiceManager {
         networkManager.dataTask(with: request) { result in
             switch result {
             case .success(let data):
+                ImageDataCacheManager.shared.setObject(object: data, key: urlString)
                 completion(.success(data))
             case .failure(let error):
                 completion(.failure(error))
             }
         }
     }
+    
 }
 
 
@@ -70,5 +76,5 @@ extension PhotoServiceManager {
             }
         }
     }
-
+    
 }
