@@ -12,9 +12,9 @@ class TabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let firstView = MainPhotoViewController()
+        let firstView = UIViewController()
         let secondView = MainPhotoViewController()
-        let thirdView = MainPhotoViewController()
+        let thirdView = UIViewController()
         
         firstView.tabBarItem = UITabBarItem(title: "random", image: UIImage(systemName: "photo.on.rectangle.angled"), tag: 0)
         secondView.tabBarItem = UITabBarItem(title: "main", image: UIImage(systemName: "house.fill"), tag: 1)
@@ -24,6 +24,8 @@ class TabBarViewController: UITabBarController {
         self.tabBar.backgroundColor = .black
         self.tabBar.tintColor = .white
         self.tabBar.unselectedItemTintColor = .darkGray
+        
+        self.selectedIndex = 1
     }
 
 }
