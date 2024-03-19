@@ -9,5 +9,5 @@ import UIKit
 
 protocol RecentCollectionViewLayoutDelegate: AnyObject {
     func collectionView(_ collectionView: UICollectionView,
-                        heightForPhotoAtIndexPaht indexPath: IndexPath) -> CGFloat
+                        heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat
 }
