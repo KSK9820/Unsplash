@@ -13,7 +13,7 @@ final class RecentCollectionViewLayout: UICollectionViewLayout {
     
     private let numberOfColumns = 2
     private let cellPadding: CGFloat = 4
-
+    
     private var attributeCache: [UICollectionViewLayoutAttributes] = []
     private var contentHeight: CGFloat = 0
     
@@ -26,12 +26,10 @@ final class RecentCollectionViewLayout: UICollectionViewLayout {
         
         return collectionView.bounds.width - (insets.left + insets.right)
     }
-}
-
-
-// MARK: - override method
-
-extension RecentCollectionViewLayout {
+    
+    
+    // MARK: - override method
+    
     
     override var collectionViewContentSize: CGSize {
         return CGSize(width: contentWidth, height: contentHeight)
@@ -39,7 +37,7 @@ extension RecentCollectionViewLayout {
     
     override func prepare() {
         guard attributeCache.isEmpty == true else { return }
-      
+        
         guard let collectionView = collectionView else { return }
         
         let columnWidth = contentWidth / CGFloat(numberOfColumns)
@@ -57,7 +55,7 @@ extension RecentCollectionViewLayout {
             let indexPath = IndexPath(item: item, section: 0)
             
             let photoHeight = delegate?.collectionView(collectionView,
-                                                       heightForPhotoAtIndexPaht: indexPath) ?? columnWidth
+                                                       heightForPhotoAtIndexPath: indexPath) ?? columnWidth
             let height = cellPadding * 2 + photoHeight
             let frame = CGRect(x: xOffset[column],
                                y: yOffset[column],
@@ -69,17 +67,17 @@ extension RecentCollectionViewLayout {
             attributes.frame = insetFrame
             
             attributeCache.append(attributes)
-            
+ 
             contentHeight = max(contentHeight, frame.maxY)
             yOffset[column] = yOffset[column] + height
             
-            column = column < (numberOfColumns - 1) ? (column + 1) : 0
+            column = yOffset[0] > yOffset[1] ? 1 : 0
         }
     }
     
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         var visibleLayoutAttributes: [UICollectionViewLayoutAttributes] = []
-
+        
         for attributes in attributeCache {
             if attributes.frame.intersects(rect) {
                 visibleLayoutAttributes.append(attributes)
