@@ -8,6 +8,6 @@
 import Foundation
 
 protocol PhotoViewModelProtocol {
-    func getPhotos()
+    func getPhotoInformation()
     func getPhotoCount() -> Int
 }

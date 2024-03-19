@@ -7,30 +7,17 @@
 
 import Foundation
 
-public class MainPhotoViewModel: PhotoViewModelProtocol {
+final class MainPhotoViewModel: PhotoViewModelProtocol {
     
     private let serviceManager = PhotoServiceManager()
     
-    var photoInformation = Binding<[MainPhotoDTO]>([])
-    var photoList = Binding<[Data]>([])
+    private(set) var photoInformation = Binding<[MainPhotoDTO]>([])
     
-    func getPhotos() {
+    func getPhotoInformation() {
         serviceManager.getMainPhotoList { [weak self] result in
             switch result {
-            case .success(let datas):
-                self?.photoInformation.value += datas
-                for data in datas {
-                    let url = data.urls.thumb
-                    
-                    self?.serviceManager.getPhoto(urlString: url) { [weak self] result in
-                        switch result {
-                        case .success(let ImageData):
-                            self?.photoList.value.append(ImageData)
-                        case .failure(let error):
-                            print(error)
-                        }
-                    }
-                }
+            case .success(let data):
+                self?.photoInformation.value += data
             case .failure(let error):
                 print(error)
             }
@@ -38,7 +25,11 @@ public class MainPhotoViewModel: PhotoViewModelProtocol {
     }
     
     func getPhotoCount() -> Int {
-        return photoList.value.count
+        photoInformation.value.count
+    }
+    
+    func getThumbURLString(index: Int) -> String {
+        photoInformation.value[index].urls.thumb
     }
     
     func getImageSize(row: Int, viewWidth: CGFloat) -> CGFloat {
@@ -46,11 +37,7 @@ public class MainPhotoViewModel: PhotoViewModelProtocol {
         let width = image.width
         let height = image.height
         
-        return CGFloat(height * Int(viewWidth/2) / width)
-    }
-    
-    func getThumbURLString(index: Int) -> String {
-        photoInformation.value[index].urls.thumb
+        return CGFloat(height * Int(viewWidth / 2) / width)
     }
     
 }

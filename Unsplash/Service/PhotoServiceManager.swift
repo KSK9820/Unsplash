@@ -16,8 +16,29 @@ final class PhotoServiceManager {
         self.networkManager = networkManager
     }
     
-    func getPhotoList<T: Decodable>(request: URLRequest,
-                                    completion: @escaping (Result<T, Error>) -> Void) {
+    // MARK: - internal method
+    // MARK: - UnsplashRequest 전용 메서드
+    
+    func getMainPhotoList(completion: @escaping (Result<[MainPhotoDTO], Error>) -> Void) {
+        guard let request = UnsplashRequest.main.asURLRequest() else {
+            return completion(.failure(ConvertError.urlRequestError))
+        }
+        
+        getData(request: request) { (result: Result<[MainPhotoDTO], Error>) in
+            switch result {
+            case .success(let data):
+                completion(.success(data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    
+    // MARK: - private method
+    
+    private func getData<T: Decodable>(request: URLRequest,
+                                       completion: @escaping (Result<T, Error>) -> Void) {
         networkManager.dataTask(with: request) { [weak self] result in
             switch result {
             case .success(let data):
@@ -26,51 +47,6 @@ final class PhotoServiceManager {
                 }
                 
                 completion(.success(decodedData))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
-    
-    func getPhoto(urlString: String,
-                  completion: @escaping (Result<Data, Error>) -> Void) {
-        if let cachedData = ImageDataCacheManager.shared.object(key: urlString) {
-            return completion(.success(Data(cachedData)))
-        }
-        
-        guard let url = URL(string: urlString) else {
-            return completion(.failure(ConvertError.urlError))
-        }
-        
-        let request = URLRequest(url: url)
-        
-        networkManager.dataTask(with: request) { result in
-            switch result {
-            case .success(let data):
-                ImageDataCacheManager.shared.setObject(object: data, key: urlString)
-                completion(.success(data))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
-    
-}
-
-
-// MARK: - UnsplashRequest 전용 메서드
-
-extension PhotoServiceManager {
-    
-    func getMainPhotoList(completion: @escaping (Result<[MainPhotoDTO], Error>) -> Void) {
-        guard let request = UnsplashRequest.main.asURLRequest() else {
-            return completion(.failure(ConvertError.urlRequestError))
-        }
-        
-        getPhotoList(request: request) { (result: Result<[MainPhotoDTO], Error>) in
-            switch result {
-            case .success(let data):
-                completion(.success(data))
             case .failure(let error):
                 completion(.failure(error))
             }

@@ -20,7 +20,24 @@ final class MainPhotoViewController: UIViewController {
         return collectionView
     }()
     
-    func UISetting() {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        
+        UISetting()
+        UIConfigure()
+        
+        viewModel.getPhotoInformation()
+        photoInformationBinding()
+    }
+    
+    
+    // MARK: - private method
+    
+    private func UISetting() {
+        view.backgroundColor = .white
+        
         if let layout = collectionView.collectionViewLayout as? RecentCollectionViewLayout {
           layout.delegate = self
         }
@@ -28,7 +45,7 @@ final class MainPhotoViewController: UIViewController {
         collectionView.dataSource = self
     }
     
-    func UIConfigure() {
+    private func UIConfigure() {
         view.addSubview(collectionView)
         
         NSLayoutConstraint.activate([
@@ -39,24 +56,14 @@ final class MainPhotoViewController: UIViewController {
         ])
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        
-        view.backgroundColor = .white
-        
-        UISetting()
-        UIConfigure()
-        
-        viewModel.getPhotos()
-     
-        viewModel.photoList.bind { [weak self] photoList in
+    private func photoInformationBinding() {
+        viewModel.photoInformation.bind { _ in
             DispatchQueue.main.async { [weak self] in
                 self?.collectionView.reloadData()
             }
         }
     }
-
+    
 }
 
 
@@ -72,8 +79,8 @@ extension MainPhotoViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecentImageCollectionViewCell.reuseIdentifier, for: indexPath) as? RecentImageCollectionViewCell else {
             return RecentImageCollectionViewCell()
         }
-        
-        cell.setImage(imageData: viewModel.photoList.value[indexPath.row])
+//        cell.backgroundColor = UIColor.systemGray
+        cell.setImage(urlString: viewModel.getThumbURLString(index: indexPath.row))
     
         return cell
     }
@@ -86,7 +93,7 @@ extension MainPhotoViewController: UICollectionViewDataSource {
 extension MainPhotoViewController: RecentCollectionViewLayoutDelegate {
     
     func collectionView(_ collectionView: UICollectionView,
-                        heightForPhotoAtIndexPaht indexPath: IndexPath) -> CGFloat {
+                        heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
         viewModel.getImageSize(row: indexPath.row, viewWidth: view.bounds.width)
     }
     
