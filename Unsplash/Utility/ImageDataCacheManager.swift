@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ImageDataCacheManager {
+final class ImageDataCacheManager {
     
     static let shared = ImageDataCacheManager()
     
@@ -20,14 +20,13 @@ class ImageDataCacheManager {
         if let cachedImage = storage.object(forKey: cachedKey) as? Data {
             return cachedImage
         }
-        
+    
         return nil
     }
     
     func setObject(object data: Data, key urlString: String) {
         let forKey = NSString(string: urlString)
         let data = NSData(data: data)
-        
         self.storage.setObject(data, forKey: forKey)
     }
     
