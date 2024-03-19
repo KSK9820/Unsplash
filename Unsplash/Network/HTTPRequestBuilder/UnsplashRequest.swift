@@ -15,7 +15,15 @@ enum UnsplashRequest {
 }
 
 extension UnsplashRequest: HTTPRequestable {
-    static let apiKey = Bundle.main.infoDictionary?["UNSPLASH_KEY"] as! String
+    private var apiKey: String {
+        get throws {
+            guard let apiKey = Bundle.main.infoDictionary?["UNSPLASH_KEY"] as? String
+            else {
+                throw NetworkError.notFoundAPIKey
+            }
+            return apiKey
+        }
+    }
     
     var urlString: String { "https://api.unsplash.com" }
     var httpMethod: HTTPMethod {
@@ -54,11 +62,17 @@ extension UnsplashRequest: HTTPRequestable {
     }
     
     var httpHeaders: [String : String]? {
-        var headers = ["Authorization" : "Client-ID \(Self.apiKey)"]
-        switch self {
-        default:
-            break
+        do {
+            var headers = ["Authorization" : "Client-ID \(try apiKey)"]
+            switch self {
+            default:
+                break
+            }
+            return headers
+        } catch {
+            print(error)
         }
-        return headers
+        
+        return nil
     }
 }
