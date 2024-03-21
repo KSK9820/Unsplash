@@ -19,10 +19,10 @@ final class MainPhotoViewController: UIViewController {
         
         UISetting()
         UIConfigure()
-        
-        viewModel.getPhotoInformation()
-    
+
+        currentPageBinding()
         photoInformationBinding()
+        totalPageBinding()
     }
     
     
@@ -45,8 +45,24 @@ final class MainPhotoViewController: UIViewController {
     
     private func photoInformationBinding() {
         viewModel.photoInformation.bind { _ in
-            DispatchQueue.main.async { [weak self] in
-                self?.recentCollectionView.updateView()
+            DispatchQueue.main.async {
+                self.recentCollectionView.reloadData()
+            }
+        }
+    }
+    
+    private func totalPageBinding() {
+        viewModel.totalPage.bind { _ in
+            DispatchQueue.main.async {
+                self.recentCollectionView.reloadData()
+            }
+        }
+    }
+    
+    private func currentPageBinding() {
+        viewModel.currentPage.bind { [weak self] _ in
+            if self?.viewModel.currentPage.value == self?.viewModel.totalPage.value {
+                self?.viewModel.getPhotoInformation()
             }
         }
     }

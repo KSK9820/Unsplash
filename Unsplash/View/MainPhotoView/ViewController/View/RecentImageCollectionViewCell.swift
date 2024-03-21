@@ -14,7 +14,7 @@ final class RecentImageCollectionViewCell: UICollectionViewCell, ReuseIdentifiab
         let imageView = UIImageView()
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.cornerRadius = 10
+        imageView.layer.cornerRadius = 10 
         imageView.clipsToBounds = true
         
         return imageView
@@ -34,11 +34,11 @@ final class RecentImageCollectionViewCell: UICollectionViewCell, ReuseIdentifiab
     // MARK: - internal method
     
     func setImage(urlString: String) {
-        imageConverter.getImage(urlString: urlString) { result in
+        imageConverter.getImage(urlString: urlString) { [weak self] result in
             switch result {
             case .success(let imageData):
                 DispatchQueue.main.async {
-                    self.imageView.image = UIImage(data: imageData)
+                    self?.imageView.image = UIImage(data: imageData)
                 }
             case .failure(let error):
                 print(error)

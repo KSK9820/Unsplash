@@ -21,13 +21,6 @@ final class RecentImageCollectionView: UICollectionView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
-    // MARK: - internal method
-
-    func updateView() {
-        self.reloadData()
-    }
 
     
     // MARK: - private method
@@ -39,6 +32,7 @@ final class RecentImageCollectionView: UICollectionView {
         self.collectionViewLayout = layout
         self.register(RecentImageCollectionViewCell.self, forCellWithReuseIdentifier: RecentImageCollectionViewCell.reuseIdentifier)
         self.dataSource = self
+        self.prefetchDataSource = self
         self.translatesAutoresizingMaskIntoConstraints = false
     }
 
@@ -49,6 +43,7 @@ final class RecentImageCollectionView: UICollectionView {
 
 extension RecentImageCollectionView: UICollectionViewDataSource {
     
+    // pagination 오류
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         viewModel.getPhotoCount()
     }
@@ -60,8 +55,21 @@ extension RecentImageCollectionView: UICollectionViewDataSource {
         
         cell.backgroundColor = UIColor.systemGray
         cell.setImage(urlString: viewModel.getThumbURLString(index: indexPath.row))
-    
+        
         return cell
+    }
+    
+}
+
+
+extension RecentImageCollectionView: UICollectionViewDataSourcePrefetching {
+
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        for indexPath in indexPaths {
+            if viewModel.getPhotoCount() - 5 < indexPath.item && viewModel.currentPage.value < viewModel.totalPage.value {
+                viewModel.fetchNextPage()
+            }
+        }
     }
     
 }
@@ -77,4 +85,3 @@ extension RecentImageCollectionView: RecentCollectionViewLayoutDelegate {
     }
     
 }
-

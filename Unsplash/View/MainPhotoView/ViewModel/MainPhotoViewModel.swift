@@ -12,12 +12,15 @@ final class MainPhotoViewModel: PhotoViewModelProtocol {
     private let serviceManager = PhotoServiceManager()
     
     private(set) var photoInformation = Binding<[MainPhotoDTO]>([])
+    private(set) var currentPage = Binding<Int>(1)
+    private(set) var totalPage = Binding<Int>(1)
     
     func getPhotoInformation() {
-        serviceManager.getMainPhotoList { [weak self] result in
+        serviceManager.getMainPhotoList(page: String(totalPage.value)) { [weak self] result in
             switch result {
             case .success(let data):
                 self?.photoInformation.value += data
+                self?.totalPage.value += 1
             case .failure(let error):
                 print(error)
             }
@@ -38,6 +41,10 @@ final class MainPhotoViewModel: PhotoViewModelProtocol {
         let height = image.height
         
         return CGFloat(height * Int(viewWidth / 2) / width)
+    }
+    
+    func fetchNextPage() {
+        currentPage.value += 1
     }
     
 }
