@@ -33,13 +33,15 @@ final class MainPhotoViewController: UIViewController {
     }
     
     private func UIConfigure() {
-        view.addSubview(recentCollectionView)
+        let safeArea = view.safeAreaLayoutGuide
+
+        view.addSubview(recentCollectionView)        
         
         NSLayoutConstraint.activate([
-            recentCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            recentCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            recentCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            recentCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            recentCollectionView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            recentCollectionView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            recentCollectionView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            recentCollectionView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ])
     }
     

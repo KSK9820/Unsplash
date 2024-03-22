@@ -14,7 +14,10 @@ final class RecentCollectionViewLayout: UICollectionViewLayout {
     private let numberOfColumns = 2
     private let cellPadding: CGFloat = 4
     
+    private var headerAttributesCache: [UICollectionViewLayoutAttributes] = []
     private var attributeCache: [UICollectionViewLayoutAttributes] = []
+    
+    private var headerHeight: CGFloat = 50
     private var contentHeight: CGFloat = 0
     
     private var contentWidth: CGFloat {
@@ -36,10 +39,18 @@ final class RecentCollectionViewLayout: UICollectionViewLayout {
     }
     
     override func prepare() {
-        guard attributeCache.isEmpty == true else { return }
+        guard attributeCache.isEmpty else { return }
+        guard headerAttributesCache.isEmpty else { return }
         
         guard let collectionView = collectionView else { return }
         
+        // header view
+        let headerAttribute = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, with: IndexPath(item: 0, section: 0))
+        
+        headerAttribute.frame = CGRect(x: 0, y: 0, width: collectionView.frame.width, height: headerHeight)
+        headerAttributesCache = [headerAttribute]
+        
+        // cell view
         let columnWidth = contentWidth / CGFloat(numberOfColumns)
         
         var xOffset: [CGFloat] = []
@@ -49,7 +60,7 @@ final class RecentCollectionViewLayout: UICollectionViewLayout {
         }
         
         var column = 0
-        var yOffset: [CGFloat] = .init(repeating: 0, count: numberOfColumns)
+        var yOffset: [CGFloat] = .init(repeating: headerHeight, count: numberOfColumns)
         
         for item in 0..<collectionView.numberOfItems(inSection: 0) {
             let indexPath = IndexPath(item: item, section: 0)
@@ -73,6 +84,8 @@ final class RecentCollectionViewLayout: UICollectionViewLayout {
             
             column = yOffset[0] > yOffset[1] ? 1 : 0
         }
+        
+        
     }
     
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
@@ -83,6 +96,8 @@ final class RecentCollectionViewLayout: UICollectionViewLayout {
                 visibleLayoutAttributes.append(attributes)
             }
         }
+
+        visibleLayoutAttributes.append(contentsOf: headerAttributesCache.filter {  rect.intersects($0.frame) })
         
         return visibleLayoutAttributes
     }
@@ -90,5 +105,5 @@ final class RecentCollectionViewLayout: UICollectionViewLayout {
     override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         attributeCache[indexPath.item]
     }
-    
+
 }

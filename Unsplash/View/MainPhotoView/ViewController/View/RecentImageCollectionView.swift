@@ -28,11 +28,15 @@ final class RecentImageCollectionView: UICollectionView {
     private func configuration() {
         let layout = RecentCollectionViewLayout()
         layout.delegate = self
-
+        
         self.collectionViewLayout = layout
+        
+        self.register(MainPhotoHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: MainPhotoHeaderView.reuseIdentifier)
         self.register(RecentImageCollectionViewCell.self, forCellWithReuseIdentifier: RecentImageCollectionViewCell.reuseIdentifier)
+        
         self.dataSource = self
         self.prefetchDataSource = self
+        
         self.translatesAutoresizingMaskIntoConstraints = false
     }
 
@@ -58,7 +62,21 @@ extension RecentImageCollectionView: UICollectionViewDataSource {
         
         return cell
     }
-    
+
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: MainPhotoHeaderView.reuseIdentifier, for: indexPath) as? MainPhotoHeaderView else {
+                return MainPhotoHeaderView()
+            }
+            
+            headerView.setTitle(with: "최신 이미지")
+           
+            return headerView
+        default:
+            assert(false)
+        }
+    }
 }
 
 
