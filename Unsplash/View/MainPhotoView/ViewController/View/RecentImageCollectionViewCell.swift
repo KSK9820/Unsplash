@@ -20,6 +20,16 @@ final class RecentImageCollectionViewCell: UICollectionViewCell, ReuseIdentifiab
         return imageView
     }()
     
+    private var titleLabel: UILabel = {
+        let label = UILabel()
+        
+        label.textColor = .white
+        label.numberOfLines = 2
+        label.font = .preferredFont(forTextStyle: .body)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -46,17 +56,26 @@ final class RecentImageCollectionViewCell: UICollectionViewCell, ReuseIdentifiab
         }
     }
     
+    func setTitle(string: String) {
+        titleLabel.text = string
+    }
+    
     
     // MARK: - private method
 
     private func configure() {
         contentView.addSubview(imageView)
+        contentView.addSubview(titleLabel)
         
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            
+            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -6),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 6),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -6)
         ])
     }
     

@@ -35,6 +35,12 @@ final class MainPhotoViewModel: PhotoViewModelProtocol {
         photoInformation.value[index].urls.thumb
     }
     
+    func getTitleString(index: Int) -> String {
+        guard let title = photoInformation.value[index].altDescription else { return "" }
+        
+        return title
+    }
+    
     func getImageSize(row: Int, viewWidth: CGFloat) -> CGFloat {
         let image = photoInformation.value[row]
         let width = image.width

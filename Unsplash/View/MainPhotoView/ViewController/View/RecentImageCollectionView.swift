@@ -62,6 +62,7 @@ extension RecentImageCollectionView: UICollectionViewDataSource {
         
         cell.backgroundColor = UIColor.systemGray
         cell.setImage(urlString: viewModel.getThumbURLString(index: indexPath.row))
+        cell.setTitle(string: viewModel.getTitleString(index: indexPath.row))
         
         return cell
     }
