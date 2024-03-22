@@ -15,6 +15,7 @@ final class RecentCollectionViewLayout: UICollectionViewLayout {
     private let cellPadding: CGFloat = 4
     
     private var headerAttributesCache: [UICollectionViewLayoutAttributes] = []
+    
     private var attributeCache: [UICollectionViewLayoutAttributes] = []
     
     private var headerHeight: CGFloat = 50
@@ -39,8 +40,8 @@ final class RecentCollectionViewLayout: UICollectionViewLayout {
     }
     
     override func prepare() {
-        guard attributeCache.isEmpty else { return }
-        guard headerAttributesCache.isEmpty else { return }
+//        guard attributeCache.isEmpty else { return }
+//        guard headerAttributesCache.isEmpty else { return }
         
         guard let collectionView = collectionView else { return }
         
@@ -64,7 +65,6 @@ final class RecentCollectionViewLayout: UICollectionViewLayout {
         
         for item in 0..<collectionView.numberOfItems(inSection: 0) {
             let indexPath = IndexPath(item: item, section: 0)
-            
             let photoHeight = delegate?.collectionView(collectionView,
                                                        heightForPhotoAtIndexPath: indexPath) ?? columnWidth
             let height = cellPadding * 2 + photoHeight
@@ -84,7 +84,7 @@ final class RecentCollectionViewLayout: UICollectionViewLayout {
             
             column = yOffset[0] > yOffset[1] ? 1 : 0
         }
-        
+ 
         
     }
     
