@@ -47,4 +47,8 @@ final class MainPhotoViewModel: PhotoViewModelProtocol {
         currentPage.value += 1
     }
     
+    func getPhotoID(index: Int) -> String {
+        photoInformation.value[index].id
+    }
+    
 }

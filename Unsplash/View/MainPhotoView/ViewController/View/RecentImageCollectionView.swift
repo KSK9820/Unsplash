@@ -11,9 +11,12 @@ final class RecentImageCollectionView: UICollectionView {
 
     private let viewModel: MainPhotoViewModel
     
-    init(viewModel: MainPhotoViewModel) {
-        self.viewModel = viewModel
+    weak var presenterDelegate: UIViewController?
     
+    init(viewModel: MainPhotoViewModel, presenterDelegate: UIViewController) {
+        self.viewModel = viewModel
+        self.presenterDelegate = presenterDelegate
+        
         super.init(frame: .zero, collectionViewLayout: UICollectionViewLayout())
         configuration()
     }
@@ -35,8 +38,8 @@ final class RecentImageCollectionView: UICollectionView {
         self.register(RecentImageCollectionViewCell.self, forCellWithReuseIdentifier: RecentImageCollectionViewCell.reuseIdentifier)
         
         self.dataSource = self
+        self.delegate = self
         self.prefetchDataSource = self
-        
         self.translatesAutoresizingMaskIntoConstraints = false
     }
 
@@ -77,8 +80,24 @@ extension RecentImageCollectionView: UICollectionViewDataSource {
             assert(false)
         }
     }
+    
 }
 
+
+// MARK: - UICollectionViewDelegate method
+
+extension RecentImageCollectionView: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let detailPhotoViewControoler = DetailPhotoViewController(id: viewModel.getPhotoID(index: indexPath.row))
+        
+        detailPhotoViewControoler.modalPresentationStyle = .overCurrentContext
+        
+        presenterDelegate?.present(detailPhotoViewControoler, animated: true)
+    }
+}
+
+
+// MARK: - UICollectionViewDataSourcePrefetching method
 
 extension RecentImageCollectionView: UICollectionViewDataSourcePrefetching {
 
