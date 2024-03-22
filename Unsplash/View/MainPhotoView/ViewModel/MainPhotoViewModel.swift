@@ -16,7 +16,7 @@ final class MainPhotoViewModel: PhotoViewModelProtocol {
     private(set) var totalPage = Binding<Int>(1)
     
     func getPhotoInformation() {
-        serviceManager.getMainPhotoList(page: String(totalPage.value)) { [weak self] result in
+        serviceManager.getRecentPhotoList(page: String(totalPage.value)) { [weak self] result in
             switch result {
             case .success(let data):
                 self?.photoInformation.value += data

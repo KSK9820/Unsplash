@@ -13,7 +13,7 @@ final class RecentImageCollectionView: UICollectionView {
     
     weak var presenterDelegate: UIViewController?
     
-    init(viewModel: MainPhotoViewModel, presenterDelegate: UIViewController) {
+    init(_ viewModel: MainPhotoViewModel, presenterDelegate: UIViewController) {
         self.viewModel = viewModel
         self.presenterDelegate = presenterDelegate
         

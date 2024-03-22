@@ -19,7 +19,7 @@ final class PhotoServiceManager {
     // MARK: - internal method
     // MARK: - UnsplashRequest 전용 메서드
     
-    func getMainPhotoList(page: String, completion: @escaping (Result<[MainPhotoDTO], Error>) -> Void) {
+    func getRecentPhotoList(page: String, completion: @escaping (Result<[MainPhotoDTO], Error>) -> Void) {
         guard let request = UnsplashRequest.main(page: page).asURLRequest() else {
             return completion(.failure(ConvertError.urlRequestError))
         }

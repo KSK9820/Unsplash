@@ -11,7 +11,7 @@ final class MainPhotoViewController: UIViewController {
     
     private let viewModel = MainPhotoViewModel()
     
-    private lazy var recentCollectionView = RecentImageCollectionView(viewModel: viewModel, presenterDelegate: self)
+    private lazy var recentCollectionView = RecentImageCollectionView(viewModel, presenterDelegate: self)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +21,6 @@ final class MainPhotoViewController: UIViewController {
         UIConfigure()
 
         currentPageBinding()
-//        photoInformationBinding()
         totalPageBinding()
     }
     
