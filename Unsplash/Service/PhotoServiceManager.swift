@@ -34,6 +34,21 @@ final class PhotoServiceManager {
         }
     }
     
+    func getDetailPhoto(id: String, completion: @escaping (Result<DetailPhotoDTO, Error>) -> Void) {
+        guard let request = UnsplashRequest.detail(id: id).asURLRequest() else {
+            return completion(.failure(ConvertError.urlRequestError))
+        }
+        
+        getData(request: request) { (result: Result<DetailPhotoDTO, Error>) in
+            switch result {
+            case .success(let data):
+                completion(.success(data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
     
     // MARK: - private method
     
