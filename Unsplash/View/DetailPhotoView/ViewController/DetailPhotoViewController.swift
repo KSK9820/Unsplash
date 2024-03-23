@@ -8,14 +8,16 @@
 import UIKit
 
 class DetailPhotoViewController: UIViewController {
-
+    
+    private let viewModel = DetailPhotoViewModel()
     private let id: String
+    
+    private lazy var topStackView = TopStackView(viewModel)
+    
     
     init(id: String) {
         self.id = id
         super.init(nibName: nil, bundle: nil)
-        
-        UISetting()
     }
     
     required init?(coder: NSCoder) {
@@ -26,6 +28,12 @@ class DetailPhotoViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        viewModel.getPhotoInformation(id: id)
+
+        UISetting()
+        UIConfiguration()
+        
+        
     }
     
     
@@ -36,5 +44,18 @@ class DetailPhotoViewController: UIViewController {
         view.alpha = 0.5
     }
 
+    private func UIConfiguration() {
+        let safeArea = view.safeAreaLayoutGuide
+
+        view.addSubview(topStackView)
+        
+        NSLayoutConstraint.activate([
+            topStackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            topStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            topStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            topStackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
+        ])
+    }
+    
 
 }
