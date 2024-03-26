@@ -8,8 +8,6 @@
 import UIKit
 
 class TopStackView: UIStackView {
-
-    private let viewModel: DetailPhotoViewModel
     
     private let cancelButton: UIButton = {
         let button = UIButton()
@@ -29,7 +27,6 @@ class TopStackView: UIStackView {
         
         label.textAlignment = .left
         label.textColor = .white
-        label.text = self.viewModel.userName
         
         return label
     }()
@@ -54,11 +51,10 @@ class TopStackView: UIStackView {
     
     
     init(_ viewModel: DetailPhotoViewModel) {
-        self.viewModel = viewModel
         super.init(frame: .zero)
         
-        UISetting()
-        UIConfiguration()
+        setUI()
+        configureStackViewUI()
     }
     
     required init(coder: NSCoder) {
@@ -67,15 +63,13 @@ class TopStackView: UIStackView {
     
     
     // MARK: - private method
-    private func UISetting() {
-        
+    private func setUI() {
         self.axis = .horizontal
         self.translatesAutoresizingMaskIntoConstraints = false
     }
     
     
-    private func UIConfiguration() {
-        
+    private func configureStackViewUI() {
         self.addArrangedSubview(cancelButton)
         self.addArrangedSubview(userNameLabel)
         self.addArrangedSubview(downloadButton)

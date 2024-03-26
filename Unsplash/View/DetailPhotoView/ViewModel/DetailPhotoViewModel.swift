@@ -11,13 +11,7 @@ final class DetailPhotoViewModel {
     
     private let serviceManager = PhotoServiceManager()
     
-    private var photoInformation: DetailPhotoDTO?
-    
-    var userName: String {
-        guard let information = photoInformation else { return "" }
-        return information.user.userName
-    }
-    
+    private(set) var photoInformation: DetailPhotoDTO?
     
     func getPhotoInformation(id: String) {
         serviceManager.getDetailPhoto(id: id) { [weak self] result in
