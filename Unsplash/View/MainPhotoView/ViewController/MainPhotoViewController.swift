@@ -55,7 +55,7 @@ final class MainPhotoViewController: UIViewController {
     private func bindData() {
         viewModel.photoInformation.bind { _ in
             DispatchQueue.main.async { [weak self] in
-                if self?.viewModel.getPhotoCount() == 10 {
+                if self?.viewModel.getPhotoCount() ?? 0 <= 10 {
                     self?.recentCollectionView.reloadData()
                 } else {
                     self?.recentCollectionView.performBatchUpdates({
