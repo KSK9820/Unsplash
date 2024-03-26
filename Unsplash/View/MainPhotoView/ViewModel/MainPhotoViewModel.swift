@@ -12,15 +12,21 @@ final class MainPhotoViewModel: PhotoViewModelProtocol {
     private let serviceManager = PhotoServiceManager()
     
     private(set) var photoInformation = Binding<[MainPhotoDTO]>([])
-    private(set) var currentPage = Binding<Int>(1)
-    private(set) var totalPage = Binding<Int>(1)
+    private var currentPage = 0
+    private var totalPage = 1
+    
+    var fetchNextpage: Bool {
+        currentPage < totalPage
+    }
     
     func getPhotoInformation() {
-        serviceManager.getRecentPhotoList(page: String(totalPage.value)) { [weak self] result in
+        currentPage += 1
+        
+        serviceManager.getRecentPhotoList(page: String(totalPage)) { [weak self] result in
             switch result {
             case .success(let data):
                 self?.photoInformation.value += data
-                self?.totalPage.value += 1
+                self?.totalPage += 1
             case .failure(let error):
                 print(error)
             }
@@ -35,22 +41,12 @@ final class MainPhotoViewModel: PhotoViewModelProtocol {
         photoInformation.value[index].urls.thumb
     }
     
-    func getTitleString(index: Int) -> String {
-        guard let title = photoInformation.value[index].altDescription else { return "" }
-        
-        return title
-    }
-    
     func getImageSize(row: Int, viewWidth: CGFloat) -> CGFloat {
         let image = photoInformation.value[row]
         let width = image.width
         let height = image.height
         
         return CGFloat(height * Int(viewWidth / 2) / width)
-    }
-    
-    func fetchNextPage() {
-        currentPage.value += 1
     }
     
     func getPhotoID(index: Int) -> String {
