@@ -31,6 +31,7 @@ final class RecentCollectionViewLayout: UICollectionViewLayout {
         return collectionView.bounds.width - (insets.left + insets.right)
     }
     
+    private lazy var yOffset: [CGFloat] = .init(repeating: headerHeight, count: numberOfColumns)
     
     // MARK: - override method
     
@@ -60,10 +61,10 @@ final class RecentCollectionViewLayout: UICollectionViewLayout {
             xOffset.append(CGFloat(column) * columnWidth)
         }
         
-        var column = 0
-        var yOffset: [CGFloat] = .init(repeating: headerHeight, count: numberOfColumns)
+        var column = yOffset.isEmpty ? 0: (yOffset[0] > yOffset[1] ? 1 : 0)
+        let currentIndex = attributeCache.count
         
-        for item in 0..<collectionView.numberOfItems(inSection: 0) {
+        for item in currentIndex..<collectionView.numberOfItems(inSection: 0) {
             let indexPath = IndexPath(item: item, section: 0)
             let photoHeight = delegate?.collectionView(collectionView,
                                                        heightForPhotoAtIndexPath: indexPath) ?? columnWidth

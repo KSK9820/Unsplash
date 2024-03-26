@@ -41,8 +41,8 @@ final class MainPhotoViewController: UIViewController {
     
     private func configureUI() {
         let safeArea = view.safeAreaLayoutGuide
-
-        view.addSubview(recentCollectionView)        
+        
+        view.addSubview(recentCollectionView)
         
         NSLayoutConstraint.activate([
             recentCollectionView.topAnchor.constraint(equalTo: safeArea.topAnchor),
@@ -54,12 +54,20 @@ final class MainPhotoViewController: UIViewController {
     
     private func bindData() {
         viewModel.photoInformation.bind { _ in
-            DispatchQueue.main.async {
-                self.recentCollectionView.reloadData()
+            DispatchQueue.main.async { [weak self] in
+                if self?.viewModel.getPhotoCount() == 10 {
+                    self?.recentCollectionView.reloadData()
+                } else {
+                    self?.recentCollectionView.performBatchUpdates({
+                        if let indexPath = self?.viewModel.insertItemRange.map({ IndexPath(item: $0, section: 0) }) {
+                            self?.recentCollectionView.insertItems(at: indexPath)
+                        }
+                    }, completion: nil)
+                }
             }
         }
     }
-
+    
 }
 
 
@@ -68,7 +76,7 @@ final class MainPhotoViewController: UIViewController {
 extension MainPhotoViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailPhotoViewControoler = DetailPhotoViewController(id: viewModel.getPhotoID(index: indexPath.row))
-    
+        
         self.navigationController?.pushViewController(detailPhotoViewControoler, animated: true)
     }
 }
@@ -98,7 +106,7 @@ extension MainPhotoViewController: UICollectionViewDataSource {
         
         return cell
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
@@ -107,7 +115,7 @@ extension MainPhotoViewController: UICollectionViewDataSource {
             }
             
             headerView.setTitle(with: "최신 이미지")
-           
+            
             return headerView
         default:
             assert(false)
@@ -139,3 +147,4 @@ extension MainPhotoViewController: RecentCollectionViewLayoutDelegate {
     }
     
 }
+
