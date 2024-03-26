@@ -8,7 +8,7 @@
 import Foundation
 
 enum UnsplashRequest {
-    case main
+    case main(page: String)
     case random
     case detail(id: String)
     case search
@@ -50,8 +50,8 @@ extension UnsplashRequest: HTTPRequestable {
     
     var queries: [URLQueryItem]? {
         switch self {
-        case .main:
-            return nil
+        case .main(let nextPage):
+            return [URLQueryItem(name: "per_page", value: "10"), URLQueryItem(name: "page", value: nextPage)]
         case .random:
             return nil
         case .detail:

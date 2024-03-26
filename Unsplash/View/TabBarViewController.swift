@@ -12,9 +12,9 @@ class TabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let firstView = UIViewController()
-        let secondView = MainPhotoViewController()
-        let thirdView = UIViewController()
+        let firstView = UINavigationController(rootViewController: UIViewController())
+        let secondView = UINavigationController(rootViewController: MainPhotoViewController())
+        let thirdView = UINavigationController(rootViewController: UIViewController())
         
         firstView.tabBarItem = UITabBarItem(title: "random", image: UIImage(systemName: "photo.on.rectangle.angled"), tag: 0)
         secondView.tabBarItem = UITabBarItem(title: "main", image: UIImage(systemName: "house.fill"), tag: 1)

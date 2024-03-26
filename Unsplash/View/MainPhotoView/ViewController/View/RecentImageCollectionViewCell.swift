@@ -14,16 +14,26 @@ final class RecentImageCollectionViewCell: UICollectionViewCell, ReuseIdentifiab
         let imageView = UIImageView()
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.cornerRadius = 10
+        imageView.layer.cornerRadius = 10 
         imageView.clipsToBounds = true
         
         return imageView
     }()
     
+    private var titleLabel: UILabel = {
+        let label = UILabel()
+        
+        label.textColor = .white
+        label.numberOfLines = 2
+        label.font = .preferredFont(forTextStyle: .body)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configure()
+        configureCellUI()
     }
     
     required init?(coder: NSCoder) {
@@ -34,11 +44,11 @@ final class RecentImageCollectionViewCell: UICollectionViewCell, ReuseIdentifiab
     // MARK: - internal method
     
     func setImage(urlString: String) {
-        imageConverter.getImage(urlString: urlString) { result in
+        imageConverter.getImage(urlString: urlString) { [weak self] result in
             switch result {
             case .success(let imageData):
                 DispatchQueue.main.async {
-                    self.imageView.image = UIImage(data: imageData)
+                    self?.imageView.image = UIImage(data: imageData)
                 }
             case .failure(let error):
                 print(error)
@@ -46,17 +56,26 @@ final class RecentImageCollectionViewCell: UICollectionViewCell, ReuseIdentifiab
         }
     }
     
+    func setTitle(string: String) {
+        titleLabel.text = string
+    }
+    
     
     // MARK: - private method
 
-    private func configure() {
+    private func configureCellUI() {
         contentView.addSubview(imageView)
+        contentView.addSubview(titleLabel)
         
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            
+            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -6),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 6),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -6)
         ])
     }
     
