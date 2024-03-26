@@ -30,8 +30,8 @@ class DetailPhotoViewController: UIViewController {
         // Do any additional setup after loading the view.
         viewModel.getPhotoInformation(id: id)
 
-        UISetting()
-        UIConfiguration()
+        setUI()
+        configureUI()
         
         
     }
@@ -39,12 +39,12 @@ class DetailPhotoViewController: UIViewController {
     
     // MARK: - private method
     
-    private func UISetting() {
+    private func setUI() {
         view.backgroundColor = .black
         view.alpha = 0.5
     }
 
-    private func UIConfiguration() {
+    private func configureUI() {
         let safeArea = view.safeAreaLayoutGuide
 
         view.addSubview(topStackView)

@@ -26,7 +26,7 @@ final class MainPhotoHeaderView: UICollectionReusableView, ReuseIdentifiable {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        UIConfigure()
+        configureHeaderViewUI()
     }
     
     required init?(coder: NSCoder) {
@@ -43,7 +43,7 @@ final class MainPhotoHeaderView: UICollectionReusableView, ReuseIdentifiable {
     
     // MARK: - private method
     
-    private func UIConfigure() {
+    private func configureHeaderViewUI() {
         addSubview(headerTitle)
         
         NSLayoutConstraint.activate([

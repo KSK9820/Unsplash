@@ -33,7 +33,7 @@ final class RecentImageCollectionViewCell: UICollectionViewCell, ReuseIdentifiab
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configure()
+        configureCellUI()
     }
     
     required init?(coder: NSCoder) {
@@ -63,7 +63,7 @@ final class RecentImageCollectionViewCell: UICollectionViewCell, ReuseIdentifiab
     
     // MARK: - private method
 
-    private func configure() {
+    private func configureCellUI() {
         contentView.addSubview(imageView)
         contentView.addSubview(titleLabel)
         
