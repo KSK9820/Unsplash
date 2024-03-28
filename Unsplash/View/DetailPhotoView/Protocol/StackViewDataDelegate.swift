@@ -9,4 +9,5 @@ import Foundation
 
 protocol StackViewDataDelegate: AnyObject {
     func closeView()
+    func download()
 }

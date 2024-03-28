@@ -14,6 +14,7 @@
 		5343C1F82BAD82E2006C075B /* TopStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5343C1F72BAD82E1006C075B /* TopStackView.swift */; };
 		5365984F2BA98581002379BA /* RecentImageCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5365984E2BA98581002379BA /* RecentImageCollectionView.swift */; };
 		5366C00F2BB5D045006D60B9 /* DetailBottomStackViewDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5366C00E2BB5D045006D60B9 /* DetailBottomStackViewDTO.swift */; };
+		5366C0112BB5D7BD006D60B9 /* DownloadPhotoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5366C0102BB5D7BD006D60B9 /* DownloadPhotoDTO.swift */; };
 		536BF4EE2BB2F1C40017091B /* DetailTopStackViewDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536BF4ED2BB2F1C40017091B /* DetailTopStackViewDTO.swift */; };
 		537EA2242B9EFEEA006C4B59 /* ConvertError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537EA2232B9EFEEA006C4B59 /* ConvertError.swift */; };
 		537EA2262B9F1102006C4B59 /* MainPhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537EA2252B9F1102006C4B59 /* MainPhotoViewModel.swift */; };
@@ -54,6 +55,7 @@
 		5343C1F72BAD82E1006C075B /* TopStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopStackView.swift; sourceTree = "<group>"; };
 		5365984E2BA98581002379BA /* RecentImageCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentImageCollectionView.swift; sourceTree = "<group>"; };
 		5366C00E2BB5D045006D60B9 /* DetailBottomStackViewDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBottomStackViewDTO.swift; sourceTree = "<group>"; };
+		5366C0102BB5D7BD006D60B9 /* DownloadPhotoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadPhotoDTO.swift; sourceTree = "<group>"; };
 		536BF4ED2BB2F1C40017091B /* DetailTopStackViewDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTopStackViewDTO.swift; sourceTree = "<group>"; };
 		537EA2232B9EFEEA006C4B59 /* ConvertError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertError.swift; sourceTree = "<group>"; };
 		537EA2252B9F1102006C4B59 /* MainPhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPhotoViewModel.swift; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 			children = (
 				53B170772B986CB100CF18BE /* MainPhotoDTO.swift */,
 				5343C1F22BAD7CDC006C075B /* DetailPhotoDTO.swift */,
+				5366C0102BB5D7BD006D60B9 /* DownloadPhotoDTO.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -395,6 +398,7 @@
 				5343C1F62BAD8089006C075B /* DetailPhotoViewModel.swift in Sources */,
 				536BF4EE2BB2F1C40017091B /* DetailTopStackViewDTO.swift in Sources */,
 				53B170782B986CB100CF18BE /* MainPhotoDTO.swift in Sources */,
+				5366C0112BB5D7BD006D60B9 /* DownloadPhotoDTO.swift in Sources */,
 				538F2A462B8F8602006A57BF /* ViewController.swift in Sources */,
 				5333F1032BA1842500931B75 /* PhotoViewModelProtocol.swift in Sources */,
 				538F2A422B8F8602006A57BF /* AppDelegate.swift in Sources */,
@@ -564,6 +568,7 @@
 				DEVELOPMENT_TEAM = CX8P4D8Z7M;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Unsplash/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "사진을 저장하려면 앨범에 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -592,6 +597,7 @@
 				DEVELOPMENT_TEAM = CX8P4D8Z7M;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Unsplash/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "사진을 저장하려면 앨범에 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

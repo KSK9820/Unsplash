@@ -14,6 +14,7 @@ final class DetailPhotoViewModel {
     private(set) var topStackViewDTO = Binding<DetailTopStackViewDTO>(DetailTopStackViewDTO())
     private(set) var height = Binding<CGFloat>(CGFloat())
     private(set) var bottomStackViewDTO = Binding<DetailBottomStackViewDTO>(DetailBottomStackViewDTO())
+    private(set) var downloadURL = Binding<String>(String())
     
     private(set) var photoInformation: DetailPhotoDTO?
     private(set) var imageURL: String?
@@ -36,6 +37,17 @@ final class DetailPhotoViewModel {
                     description: data.description,
                     tag: data.tags
                 )
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    func downloadPhoto(id: String) {
+        serviceManager.downloadPhoto(id: id) { [weak self] result in
+            switch result {
+            case .success(let data):
+                self?.downloadURL.value = data.url
             case .failure(let error):
                 print(error)
             }

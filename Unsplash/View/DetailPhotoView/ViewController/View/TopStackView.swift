@@ -21,7 +21,7 @@ final class TopStackView: UIStackView {
         button.contentVerticalAlignment = .fill
         button.contentHorizontalAlignment = .fill
         
-        button.addTarget(self, action: #selector(close), for: .touchUpInside)
+        button.addTarget(self, action: #selector(tappedClose), for: .touchUpInside)
         
         return button
     }()
@@ -46,6 +46,8 @@ final class TopStackView: UIStackView {
         button.tintColor = .white
         button.contentVerticalAlignment = .fill
         button.contentHorizontalAlignment = .fill
+        
+        button.addTarget(self, action: #selector(tappedDownload), for: .touchUpInside)
         
         return button
     }()
@@ -106,8 +108,12 @@ final class TopStackView: UIStackView {
         ])
     }
     
-    @objc func close() {
+    @objc func tappedClose() {
         delegate?.closeView()
+    }
+    
+    @objc func tappedDownload() {
+        delegate?.download()
     }
 
 }

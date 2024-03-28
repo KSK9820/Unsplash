@@ -10,6 +10,7 @@ import UIKit
 final class DetailPhotoViewController: UIViewController {
     
     private let viewModel = DetailPhotoViewModel()
+    private let imageConverter = ImageConverter()
     private let id: String
     
     private var topStackView = TopStackView()
@@ -70,26 +71,42 @@ final class DetailPhotoViewController: UIViewController {
     
     private func bindData() {
         viewModel.topStackViewDTO.bind { _ in
-            DispatchQueue.main.async {
-                self.topStackView.setContents(self.viewModel.topStackViewDTO.value)
+            DispatchQueue.main.async { [self] in
+                topStackView.setContents(self.viewModel.topStackViewDTO.value)
             }
         }
         
-        viewModel.height.bind { _ in
-            if let imageURL = self.viewModel.imageURL {
-                self.imageView.setContents(imageURL)
+        viewModel.height.bind { [self] _ in
+            if let imageURL = viewModel.imageURL {
+                imageView.setContents(imageURL)
                 DispatchQueue.main.async {
-                    self.imageView.heightAnchor.constraint(equalToConstant: self.viewModel.height.value * self.view.frame.width).isActive = true
+                    imageView.heightAnchor.constraint(equalToConstant: viewModel.height.value * view.frame.width).isActive = true
                 }
             }
         }
         
         viewModel.bottomStackViewDTO.bind { _ in
-            DispatchQueue.main.async {
-                self.bottomStackView.setContents(self.viewModel.bottomStackViewDTO.value)
+            DispatchQueue.main.async { [self] in
+                bottomStackView.setContents(viewModel.bottomStackViewDTO.value)
             }
         }
+        
+        viewModel.downloadURL.bind { [self]_ in
+            if viewModel.downloadURL.value == String() { return }
+            self.imageConverter.getImage(urlString: viewModel.downloadURL.value) { result in
+                switch result {
+                case .success(let data):
+                    if let image = UIImage(data: data) {
+                        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+        
     }
+    
     
 }
 
@@ -102,4 +119,9 @@ extension DetailPhotoViewController: StackViewDataDelegate {
         navigationController?.popViewController(animated: true)
     }
     
+    func download() {
+        if let id = viewModel.photoInformation?.id {
+            viewModel.downloadPhoto(id: id)
+        }
+    }
 }
