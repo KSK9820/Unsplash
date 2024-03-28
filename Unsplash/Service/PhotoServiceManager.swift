@@ -10,7 +10,7 @@ import Foundation
 final class PhotoServiceManager {
     
     private let networkManager: NetworkSessionProtocol
-    private let converter = JSONConverter()
+    private let decoder = JSONDecoder()
     
     init(networkManager: NetworkSessionProtocol = NetworkManager()) {
         self.networkManager = networkManager
@@ -57,7 +57,7 @@ final class PhotoServiceManager {
         networkManager.dataTask(with: request) { [weak self] result in
             switch result {
             case .success(let data):
-                guard let decodedData = try? self?.converter.decode(type: T.self, from: data) else {
+                guard let decodedData = try? self?.decoder.decode(T.self, from: data) else {
                     return completion(.failure(ConvertError.decodeError))
                 }
                 
