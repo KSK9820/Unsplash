@@ -11,7 +11,7 @@ final class MainPhotoViewController: UIViewController {
     
     private let viewModel = MainPhotoViewModel()
     
-    private lazy var recentCollectionView = RecentImageCollectionView()
+    private var recentCollectionView = RecentImageCollectionView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,9 +75,9 @@ final class MainPhotoViewController: UIViewController {
 
 extension MainPhotoViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let detailPhotoViewControoler = DetailPhotoViewController(id: viewModel.getPhotoID(index: indexPath.row))
+        let detailPhotoViewController = DetailPhotoViewController(id: viewModel.getPhotoID(index: indexPath.row))
         
-        self.navigationController?.pushViewController(detailPhotoViewControoler, animated: true)
+        self.navigationController?.pushViewController(detailPhotoViewController, animated: false)
     }
 }
 

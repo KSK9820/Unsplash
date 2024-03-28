@@ -16,6 +16,8 @@ class TabBarViewController: UITabBarController {
         let secondView = UINavigationController(rootViewController: MainPhotoViewController())
         let thirdView = UINavigationController(rootViewController: UIViewController())
         
+        secondView.navigationBar.isHidden = true
+        
         firstView.tabBarItem = UITabBarItem(title: "random", image: UIImage(systemName: "photo.on.rectangle.angled"), tag: 0)
         secondView.tabBarItem = UITabBarItem(title: "main", image: UIImage(systemName: "house.fill"), tag: 1)
         thirdView.tabBarItem = UITabBarItem(title: "search", image: UIImage(systemName: "magnifyingglass"), tag: 2)
