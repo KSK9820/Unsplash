@@ -72,40 +72,44 @@ final class DetailPhotoViewController: UIViewController {
     }
     
     private func bindData() {
-        viewModel.topStackViewDTO.bind { _ in
-            DispatchQueue.main.async { [self] in
-                topStackView.setContents(self.viewModel.topStackViewDTO.value)
+        viewModel.topStackViewDTO.bind { [weak self] _ in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                self.topStackView.setContents(self.viewModel.topStackViewDTO.value)
             }
         }
         
-        viewModel.height.bind { [self] _ in
-            if let imageURL = viewModel.imageURL {
-                imageView.setContents(imageURL)
+        viewModel.height.bind { [weak self] _ in
+            if let imageURL = self?.viewModel.imageURL {
+                self?.imageView.setContents(imageURL)
                 DispatchQueue.main.async {
-                    imageView.heightAnchor.constraint(equalToConstant: viewModel.height.value * view.frame.width).isActive = true
+                    guard let self = self else { return }
+                    self.imageView.heightAnchor.constraint(equalToConstant: self.viewModel.height.value * self.view.frame.width).isActive = true
                 }
             }
         }
         
-        viewModel.bottomStackViewDTO.bind { _ in
-            DispatchQueue.main.async { [self] in
-                bottomStackView.setContents(viewModel.bottomStackViewDTO.value)
+        viewModel.bottomStackViewDTO.bind { [weak self] _ in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                self.bottomStackView.setContents(self.viewModel.bottomStackViewDTO.value)
             }
         }
     }
     
     private func checkAccessibilityForGallery() {
-        PHPhotoLibrary.requestAuthorization(for: .addOnly) { [self] PHAuthorizationStatus in
+        PHPhotoLibrary.requestAuthorization(for: .addOnly) { [weak self] PHAuthorizationStatus in
             switch PHAuthorizationStatus {
             case .authorized:
-                viewModel.downloadURL.bind { [self]_ in
-                    if viewModel.downloadURL.value == String() { return }
-                    
-                    self.imageConverter.getImage(urlString: viewModel.downloadURL.value) { result in
+                guard let self = self else { return }
+                viewModel.downloadURL.bind { _ in
+                    if self.viewModel.downloadURL.value == String() { return }
+       
+                    self.imageConverter.getImage(urlString: self.viewModel.downloadURL.value) { result in
                         switch result {
                         case .success(let data):
                             if let image = UIImage(data: data) {
-                                UIImageWriteToSavedPhotosAlbum(image, self, #selector(alertDownloaded), nil)
+                                UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.alertDownloaded), nil)
                             }
                         case .failure(let error):
                             print(error)

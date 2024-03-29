@@ -22,8 +22,8 @@ final class Binding<T> {
         self.value = value
     }
     
-    func bind(listener: Listener?) {
+    func bind(listener: @escaping Listener) {
         self.listener = listener
-        listener?(value)
+        listener(value)
     }
 }
