@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Photos
 
 final class DetailPhotoViewController: UIViewController {
     
@@ -35,6 +36,7 @@ final class DetailPhotoViewController: UIViewController {
         setUI()
         configureUI()
         bindData()
+        checkAccessibilityForGallery()
     }
     
     
@@ -90,24 +92,38 @@ final class DetailPhotoViewController: UIViewController {
                 bottomStackView.setContents(viewModel.bottomStackViewDTO.value)
             }
         }
-        
-        viewModel.downloadURL.bind { [self]_ in
-            if viewModel.downloadURL.value == String() { return }
-            self.imageConverter.getImage(urlString: viewModel.downloadURL.value) { result in
-                switch result {
-                case .success(let data):
-                    if let image = UIImage(data: data) {
-                        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-                    }
-                case .failure(let error):
-                    print(error)
-                }
-            }
-        }
-        
     }
     
+    private func checkAccessibilityForGallery() {
+        PHPhotoLibrary.requestAuthorization(for: .addOnly) { [self] PHAuthorizationStatus in
+            switch PHAuthorizationStatus {
+            case .authorized:
+                viewModel.downloadURL.bind { [self]_ in
+                    if viewModel.downloadURL.value == String() { return }
+                    
+                    self.imageConverter.getImage(urlString: viewModel.downloadURL.value) { result in
+                        switch result {
+                        case .success(let data):
+                            if let image = UIImage(data: data) {
+                                UIImageWriteToSavedPhotosAlbum(image, self, #selector(alertDownloaded), nil)
+                            }
+                        case .failure(let error):
+                            print(error)
+                        }
+                    }
+                }
+            default:
+                break
+            }
+        }
+    }
     
+    @objc func alertDownloaded(_ image: UIImage, error: Error?, context: UnsafeMutableRawPointer?) {
+        var message = error == nil ? "이미지를 다운로드 하였습니다." : "다운로드에 실패하였습니다."
+        let successAlert = DownloadAlertViewController(message: message)
+        
+        successAlert.showAlert(from: self)
+    }
 }
 
 

@@ -45,6 +45,7 @@
 		53AC5EBB2B95DB5F00D65440 /* NetworkSessionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AC5EBA2B95DB5F00D65440 /* NetworkSessionProtocol.swift */; };
 		53B170752B98635D00CF18BE /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B170742B98635D00CF18BE /* NetworkError.swift */; };
 		53B170782B986CB100CF18BE /* MainPhotoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B170772B986CB100CF18BE /* MainPhotoDTO.swift */; };
+		53D0A79F2BB690E000F3AAC1 /* DownloadAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D0A79E2BB690E000F3AAC1 /* DownloadAlertViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +89,7 @@
 		53AC5EBA2B95DB5F00D65440 /* NetworkSessionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSessionProtocol.swift; sourceTree = "<group>"; };
 		53B170742B98635D00CF18BE /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		53B170772B986CB100CF18BE /* MainPhotoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPhotoDTO.swift; sourceTree = "<group>"; };
+		53D0A79E2BB690E000F3AAC1 /* DownloadAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadAlertViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				5343C1F02BAD75CB006C075B /* DetailPhotoViewController.swift */,
+				53D0A79E2BB690E000F3AAC1 /* DownloadAlertViewController.swift */,
 				536BF4EF2BB2F1E30017091B /* DTO */,
 				536BF4EC2BB2E0C00017091B /* View */,
 			);
@@ -399,6 +402,7 @@
 				536BF4EE2BB2F1C40017091B /* DetailTopStackViewDTO.swift in Sources */,
 				53B170782B986CB100CF18BE /* MainPhotoDTO.swift in Sources */,
 				5366C0112BB5D7BD006D60B9 /* DownloadPhotoDTO.swift in Sources */,
+				53D0A79F2BB690E000F3AAC1 /* DownloadAlertViewController.swift in Sources */,
 				538F2A462B8F8602006A57BF /* ViewController.swift in Sources */,
 				5333F1032BA1842500931B75 /* PhotoViewModelProtocol.swift in Sources */,
 				538F2A422B8F8602006A57BF /* AppDelegate.swift in Sources */,
