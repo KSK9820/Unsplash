@@ -114,6 +114,12 @@ final class DetailPhotoViewController: UIViewController {
         }
     }
     
+    private func notifyNoAuthroization() {
+        let authorizationAlert = DownloadAlertViewController(message: "갤러리 접근 권한이 없습니다.")
+        authorizationAlert.setBackgroundColor(.white)
+        authorizationAlert.showAlert(from: self)
+    }
+    
     private func downloadImage() {
         if let id = viewModel.photoInformation?.id {
             viewModel.downloadPhoto(id: id)
@@ -126,6 +132,7 @@ final class DetailPhotoViewController: UIViewController {
         
         successAlert.showAlert(from: self)
     }
+    
 }
 
 
@@ -143,7 +150,9 @@ extension DetailPhotoViewController: TopStackViewDelegate {
             case .authorized:
                 self?.downloadImage()
             default:
-                break
+                DispatchQueue.main.async {
+                    self?.notifyNoAuthroization()
+                }
             }
         }
     }

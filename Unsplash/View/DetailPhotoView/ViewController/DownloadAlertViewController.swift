@@ -73,6 +73,11 @@ class DownloadAlertViewController: UIViewController {
         }
     }
     
+    func setBackgroundColor(_ color: UIColor) {
+        view.backgroundColor = color
+        label.textColor = .black
+    }
+    
 
     // MARK: - private method
     
