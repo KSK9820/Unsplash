@@ -14,9 +14,9 @@ final class DetailPhotoViewController: UIViewController {
     private let imageConverter = ImageConverter()
     private let id: String
     
-    private var topStackView = TopStackView()
-    private var imageView = DetailImageView(frame: .zero)
-    private var bottomStackView = BottomStackView()
+    private let topStackView = TopStackView()
+    private let imageView = DetailImageView(frame: .zero)
+    private let bottomStackView = BottomStackView()
     
     init(id: String) {
         self.id = id
@@ -36,7 +36,6 @@ final class DetailPhotoViewController: UIViewController {
         setUI()
         configureUI()
         bindData()
-        checkAccessibilityForGallery()
     }
     
     
@@ -44,9 +43,6 @@ final class DetailPhotoViewController: UIViewController {
     
     private func setUI() {
         topStackView.delegate = self
-        
-        //        view.backgroundColor = .black
-        //        view.alpha = 0.5
     }
     
     private func configureUI() {
@@ -72,58 +68,60 @@ final class DetailPhotoViewController: UIViewController {
     }
     
     private func bindData() {
-        viewModel.topStackViewDTO.bind { [weak self] _ in
+        viewModel.topStackDataViewModel.bind { [weak self] data in
             DispatchQueue.main.async {
                 guard let self = self else { return }
-                self.topStackView.setContents(self.viewModel.topStackViewDTO.value)
+                guard let viewModel = data else { return }
+                self.topStackView.setContents(viewModel)
             }
         }
         
-        viewModel.height.bind { [weak self] _ in
-            if let imageURL = self?.viewModel.imageURL {
-                self?.imageView.setContents(imageURL)
+        viewModel.imageViewDataViewModel.bind { [weak self] data in
+            guard let viewModel = data else { return }
+            if let imageURL = viewModel.imageURL {
+                guard let self = self else { return }
+                
+                imageView.setContents(imageURL)
+                
                 DispatchQueue.main.async {
-                    guard let self = self else { return }
-                    self.imageView.heightAnchor.constraint(equalToConstant: self.viewModel.height.value * self.view.frame.width).isActive = true
+                    if let aspectRatio = viewModel.aspectRatioOfHeight {
+                        self.imageView.heightAnchor.constraint(equalToConstant: aspectRatio * self.view.frame.width).isActive = true
+                    }
                 }
             }
         }
         
-        viewModel.bottomStackViewDTO.bind { [weak self] _ in
+        viewModel.bottomStackDataViewModel.bind { [weak self] data in
+            guard let viewModel = data else { return }
             DispatchQueue.main.async {
                 guard let self = self else { return }
-                self.bottomStackView.setContents(self.viewModel.bottomStackViewDTO.value)
+                self.bottomStackView.setContents(viewModel)
+            }
+        }
+        
+        viewModel.downloadURL.bind { url in
+            guard let urlString = url else { return }
+            self.imageConverter.getImage(urlString: urlString) { [weak self] result in
+                switch result {
+                case .success(let data):
+                    if let image = UIImage(data: data) {
+                        UIImageWriteToSavedPhotosAlbum(image, self, #selector(self?.alertDownloaded), nil)
+                    }
+                case .failure(let error):
+                    print(error)
+                }
             }
         }
     }
     
-    private func checkAccessibilityForGallery() {
-        PHPhotoLibrary.requestAuthorization(for: .addOnly) { [weak self] PHAuthorizationStatus in
-            switch PHAuthorizationStatus {
-            case .authorized:
-                guard let self = self else { return }
-                viewModel.downloadURL.bind { _ in
-                    if self.viewModel.downloadURL.value == String() { return }
-       
-                    self.imageConverter.getImage(urlString: self.viewModel.downloadURL.value) { result in
-                        switch result {
-                        case .success(let data):
-                            if let image = UIImage(data: data) {
-                                UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.alertDownloaded), nil)
-                            }
-                        case .failure(let error):
-                            print(error)
-                        }
-                    }
-                }
-            default:
-                break
-            }
+    private func downloadImage() {
+        if let id = viewModel.photoInformation?.id {
+            viewModel.downloadPhoto(id: id)
         }
     }
     
     @objc func alertDownloaded(_ image: UIImage, error: Error?, context: UnsafeMutableRawPointer?) {
-        var message = error == nil ? "이미지를 다운로드 하였습니다." : "다운로드에 실패하였습니다."
+        let message = error == nil ? "이미지를 다운로드 하였습니다." : "다운로드에 실패하였습니다."
         let successAlert = DownloadAlertViewController(message: message)
         
         successAlert.showAlert(from: self)
@@ -133,15 +131,21 @@ final class DetailPhotoViewController: UIViewController {
 
 // MARK: - StackViewDataDelegate method
 
-extension DetailPhotoViewController: StackViewDataDelegate {
+extension DetailPhotoViewController: TopStackViewDelegate {
     
     func closeView() {
         navigationController?.popViewController(animated: true)
     }
-    
-    func download() {
-        if let id = viewModel.photoInformation?.id {
-            viewModel.downloadPhoto(id: id)
+
+    func checkAuthroization() {
+        PHPhotoLibrary.requestAuthorization(for: .addOnly) { [weak self] PHAuthorizationStatus in
+            switch PHAuthorizationStatus {
+            case .authorized:
+                self?.downloadImage()
+            default:
+                break
+            }
         }
     }
+    
 }
