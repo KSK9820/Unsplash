@@ -19,6 +19,10 @@ final class MainPhotoViewModel: PhotoViewModelProtocol {
         currentPage < totalPage
     }
     
+    var insertItemRange: Range<Int> {
+        return ((currentPage-1) * 10..<currentPage * 10)
+    }
+    
     func getPhotoInformation() {
         currentPage += 1
         
