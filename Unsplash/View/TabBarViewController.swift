@@ -14,7 +14,7 @@ class TabBarViewController: UITabBarController {
 
         let firstView = UINavigationController(rootViewController: UIViewController())
         let secondView = UINavigationController(rootViewController: MainPhotoViewController())
-        let thirdView = UINavigationController(rootViewController: UIViewController())
+        let thirdView = UINavigationController(rootViewController: SearchPhotoViewController())
         
         secondView.navigationBar.isHidden = true
         

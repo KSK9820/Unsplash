@@ -12,7 +12,7 @@ enum UnsplashRequest {
     case random
     case detail(id: String)
     case download(id: String)
-    case search
+    case search(keyword: String)
 }
 
 extension UnsplashRequest: HTTPRequestable {
@@ -55,6 +55,8 @@ extension UnsplashRequest: HTTPRequestable {
         switch self {
         case .main(let nextPage):
             return [URLQueryItem(name: "per_page", value: "10"), URLQueryItem(name: "page", value: nextPage)]
+        case .search(let keyword):
+            return [URLQueryItem(name: "query", value: keyword)]
         default:
             return nil
         }
