@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol StackViewDataDelegate: AnyObject {
+protocol TopStackViewDelegate: AnyObject {
     func closeView()
-    func download()
+    func checkAuthroization()
 }

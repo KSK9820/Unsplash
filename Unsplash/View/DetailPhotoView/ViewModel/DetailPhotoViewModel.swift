@@ -11,13 +11,12 @@ final class DetailPhotoViewModel {
     
     private let serviceManager = PhotoServiceManager()
 
-    private(set) var topStackViewDTO = Binding<DetailTopStackViewDTO>(DetailTopStackViewDTO())
-    private(set) var height = Binding<CGFloat>(CGFloat())
-    private(set) var bottomStackViewDTO = Binding<DetailBottomStackViewDTO>(DetailBottomStackViewDTO())
-    private(set) var downloadURL = Binding<String>(String())
+    private(set) var topStackDataViewModel = Binding<DetailTopStackDataViewModel?>(nil)
+    private(set) var imageViewDataViewModel = Binding<DetailImageDataViewModel?>(nil)
+    private(set) var bottomStackDataViewModel = Binding<DetailBottomStackDataViewModel?>(nil)
+    private(set) var downloadURL = Binding<String?>(nil)
     
     private(set) var photoInformation: DetailPhotoDTO?
-    private(set) var imageURL: String?
     
     
     // MARK: - internal method
@@ -27,12 +26,12 @@ final class DetailPhotoViewModel {
             switch result {
             case .success(let data):
                 self?.photoInformation = data
-                self?.topStackViewDTO.value = DetailTopStackViewDTO(
+                
+                self?.topStackDataViewModel.value = DetailTopStackDataViewModel(
                     userName: data.user.userName,
                     downloadLink: data.links.download)
-                self?.imageURL = data.urls.full
-                self?.height.value = CGFloat(data.height) / CGFloat(data.width)
-                self?.bottomStackViewDTO.value = DetailBottomStackViewDTO(
+                self?.imageViewDataViewModel.value = DetailImageDataViewModel(imageURL: data.urls.regular, aspectRatioOfHeight: CGFloat(data.height) / CGFloat(data.width))
+                self?.bottomStackDataViewModel.value = DetailBottomStackDataViewModel(
                     title: data.altDescription,
                     description: data.description,
                     tag: data.tags

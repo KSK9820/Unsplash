@@ -10,7 +10,7 @@ import UIKit
 final class RecentImageCollectionViewCell: UICollectionViewCell, ReuseIdentifiable {
     
     private let imageConverter = ImageConverter()
-    private var imageView: UIImageView = {
+    private let imageView: UIImageView = {
         let imageView = UIImageView()
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -20,7 +20,7 @@ final class RecentImageCollectionViewCell: UICollectionViewCell, ReuseIdentifiab
         return imageView
     }()
     
-    private var titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         
         label.textColor = .white

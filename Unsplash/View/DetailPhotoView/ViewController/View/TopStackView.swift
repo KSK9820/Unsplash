@@ -9,11 +9,11 @@ import UIKit
 
 final class TopStackView: UIStackView {
     
-    weak var delegate: StackViewDataDelegate?
+    weak var delegate: TopStackViewDelegate?
     
-    private var dto = DetailTopStackViewDTO()
+    private var dataViewModel = DetailTopStackDataViewModel()
     
-    private lazy var cancelButton: UIButton = {
+    private let cancelButton: UIButton = {
         let button = UIButton()
         
         button.setImage(UIImage(systemName: "x.circle"), for: .normal)
@@ -26,7 +26,7 @@ final class TopStackView: UIStackView {
         return button
     }()
 
-    private lazy var userNameLabel: UILabel = {
+    private let userNameLabel: UILabel = {
         let label = UILabel()
         
         if let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .title2).withSymbolicTraits(.traitBold) {
@@ -39,7 +39,7 @@ final class TopStackView: UIStackView {
         return label
     }()
     
-    private var downloadButton: UIButton = {
+    private let downloadButton: UIButton = {
         let button = UIButton()
         
         button.setImage(UIImage(systemName: "square.and.arrow.down.fill"), for: .normal)
@@ -52,7 +52,7 @@ final class TopStackView: UIStackView {
         return button
     }()
     
-    private var bookmarkButton: UIButton = {
+    private let bookmarkButton: UIButton = {
         let button = UIButton()
         
         button.setImage(UIImage(systemName: "bookmark"), for: .normal)
@@ -77,9 +77,9 @@ final class TopStackView: UIStackView {
     
     // MARK: - internal method
     
-    func setContents(_ dto: DetailTopStackViewDTO) {
-        self.dto = dto
-        userNameLabel.text = dto.userName
+    func setContents(_ dataViewModel: DetailTopStackDataViewModel) {
+        self.dataViewModel = dataViewModel
+        userNameLabel.text = dataViewModel.userName
     }
     
     
@@ -113,7 +113,7 @@ final class TopStackView: UIStackView {
     }
     
     @objc func tappedDownload() {
-        delegate?.download()
+        delegate?.checkAuthroization()
     }
 
 }

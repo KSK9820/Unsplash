@@ -9,7 +9,7 @@ import UIKit
 
 final class MainPhotoHeaderView: UICollectionReusableView, ReuseIdentifiable {
 
-    private var headerTitle: UILabel = {
+    private let headerTitle: UILabel = {
         let label = UILabel()
         
         if let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .title1).withSymbolicTraits(.traitBold) {

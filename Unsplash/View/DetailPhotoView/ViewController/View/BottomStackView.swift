@@ -9,7 +9,7 @@ import UIKit
 
 final class BottomStackView: UIStackView {
     
-    private lazy var titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         
         label.textAlignment = .left
@@ -19,7 +19,7 @@ final class BottomStackView: UIStackView {
         return label
     }()
     
-    private lazy var descriptionLabel: UILabel = {
+    private let descriptionLabel: UILabel = {
         let label = UILabel()
         
         label.textAlignment = .left
@@ -30,7 +30,7 @@ final class BottomStackView: UIStackView {
         return label
     }()
     
-    private lazy var tagLabel: UILabel = {
+    private let tagLabel: UILabel = {
         let label = UILabel()
         
         label.textAlignment = .left
@@ -54,17 +54,10 @@ final class BottomStackView: UIStackView {
     
     // MARK: - internal method
     
-    func setContents(_ dto: DetailBottomStackViewDTO) {
-        titleLabel.text = dto.title
-        descriptionLabel.text = dto.description
-
-        var tagValue = ""
-        if let tags = dto.tag {
-            for tag in tags {
-                tagValue += "#\(tag.title) "
-            }
-        }
-        tagLabel.text = tagValue
+    func setContents(_ dataViewModel: DetailBottomStackDataViewModel) {
+        titleLabel.text = dataViewModel.title
+        descriptionLabel.text = dataViewModel.description
+        tagLabel.text = dataViewModel.tag?.compactMap { "#" + $0.title + " " }.joined()
     }
 
     
