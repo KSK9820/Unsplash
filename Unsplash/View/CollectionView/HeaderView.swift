@@ -1,5 +1,5 @@
 //
-//  MainPhotoHeaderView.swift
+//  HeaderView.swift
 //  Unsplash
 //
 //  Created by 김수경 on 2024/03/21.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class MainPhotoHeaderView: UICollectionReusableView, ReuseIdentifiable {
+final class HeaderView: UICollectionReusableView, ReuseIdentifiable {
 
     private let headerTitle: UILabel = {
         let label = UILabel()

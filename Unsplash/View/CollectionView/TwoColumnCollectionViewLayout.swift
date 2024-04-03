@@ -1,5 +1,5 @@
 //
-//  RecentCollectionViewLayout.swift
+//  TwoColumnCollectionViewLayout.swift
 //  Unsplash
 //
 //  Created by 김수경 on 2024/03/15.
@@ -7,16 +7,15 @@
 
 import UIKit
 
-final class RecentCollectionViewLayout: UICollectionViewLayout {
+final class TwoColumnCollectionViewLayout: UICollectionViewLayout {
     
-    weak var delegate: RecentCollectionViewLayoutDelegate?
+    weak var delegate: ListCollectinoViewLayoutDelegate?
     
     private let numberOfColumns = 2
     private let cellPadding: CGFloat = 4
     
     private var headerAttributesCache: [UICollectionViewLayoutAttributes] = []
-    
-    private var attributeCache: [UICollectionViewLayoutAttributes] = []
+    private var itemAttributeCache: [UICollectionViewLayoutAttributes] = []
     
     private var headerHeight: CGFloat = 50
     private var contentHeight: CGFloat = 0
@@ -41,9 +40,6 @@ final class RecentCollectionViewLayout: UICollectionViewLayout {
     }
     
     override func prepare() {
-//        guard attributeCache.isEmpty else { return }
-//        guard headerAttributesCache.isEmpty else { return }
-        
         guard let collectionView = collectionView else { return }
         
         // header view
@@ -62,7 +58,7 @@ final class RecentCollectionViewLayout: UICollectionViewLayout {
         }
         
         var column = yOffset.isEmpty ? 0: (yOffset[0] > yOffset[1] ? 1 : 0)
-        let currentIndex = attributeCache.count
+        let currentIndex = itemAttributeCache.count
         
         for item in currentIndex..<collectionView.numberOfItems(inSection: 0) {
             let indexPath = IndexPath(item: item, section: 0)
@@ -78,7 +74,7 @@ final class RecentCollectionViewLayout: UICollectionViewLayout {
             let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
             attributes.frame = insetFrame
             
-            attributeCache.append(attributes)
+            itemAttributeCache.append(attributes)
  
             contentHeight = max(contentHeight, frame.maxY)
             yOffset[column] = yOffset[column] + height
@@ -92,7 +88,7 @@ final class RecentCollectionViewLayout: UICollectionViewLayout {
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         var visibleLayoutAttributes: [UICollectionViewLayoutAttributes] = []
         
-        for attributes in attributeCache {
+        for attributes in itemAttributeCache {
             if attributes.frame.intersects(rect) {
                 visibleLayoutAttributes.append(attributes)
             }
@@ -104,7 +100,7 @@ final class RecentCollectionViewLayout: UICollectionViewLayout {
     }
     
     override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        attributeCache[indexPath.item]
+        itemAttributeCache[indexPath.item]
     }
 
 }
