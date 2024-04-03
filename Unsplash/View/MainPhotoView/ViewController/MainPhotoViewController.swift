@@ -30,7 +30,7 @@ final class MainPhotoViewController: UIViewController {
     private func setUI() {
         view.backgroundColor = .white
         
-        let layout = RecentCollectionViewLayout()
+        let layout = TwoColumnCollectionViewLayout()
         layout.delegate = self
         recentCollectionView.collectionViewLayout = layout
         
@@ -91,8 +91,8 @@ extension MainPhotoViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecentImageCollectionViewCell.reuseIdentifier, for: indexPath) as? RecentImageCollectionViewCell else {
-            return RecentImageCollectionViewCell()
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.reuseIdentifier, for: indexPath) as? ImageCollectionViewCell else {
+            return ImageCollectionViewCell()
         }
         
         cell.backgroundColor = UIColor.systemGray
@@ -110,8 +110,8 @@ extension MainPhotoViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
-            guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: MainPhotoHeaderView.reuseIdentifier, for: indexPath) as? MainPhotoHeaderView else {
-                return MainPhotoHeaderView()
+            guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderView.reuseIdentifier, for: indexPath) as? HeaderView else {
+                return HeaderView()
             }
             
             headerView.setTitle(with: "최신 이미지")
@@ -139,7 +139,7 @@ extension MainPhotoViewController: UICollectionViewDataSourcePrefetching {
 
 // MARK: - Recent Photo Layout Delegate method
 
-extension MainPhotoViewController: RecentCollectionViewLayoutDelegate {
+extension MainPhotoViewController: ListCollectinoViewLayoutDelegate {
     
     func collectionView(_ collectionView: UICollectionView,
                         heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
