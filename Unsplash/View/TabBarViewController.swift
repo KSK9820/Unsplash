@@ -17,6 +17,7 @@ class TabBarViewController: UITabBarController {
         let thirdView = UINavigationController(rootViewController: SearchPhotoViewController())
         
         secondView.navigationBar.isHidden = true
+        thirdView.navigationBar.isHidden = true
         
         firstView.tabBarItem = UITabBarItem(title: "random", image: UIImage(systemName: "photo.on.rectangle.angled"), tag: 0)
         secondView.tabBarItem = UITabBarItem(title: "main", image: UIImage(systemName: "house.fill"), tag: 1)
@@ -27,7 +28,7 @@ class TabBarViewController: UITabBarController {
         self.tabBar.tintColor = .white
         self.tabBar.unselectedItemTintColor = .darkGray
         
-        self.selectedIndex = 1
+        self.selectedIndex = 2
     }
 
 }
