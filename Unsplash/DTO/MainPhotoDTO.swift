@@ -7,7 +7,7 @@
 //
 import Foundation
 
-struct MainPhotoDTO: Decodable {
+struct MainPhotoDTO: Decodable, Identifiable {
     let id: String
     let width: Int
     let height: Int
@@ -21,7 +21,13 @@ struct MainPhotoDTO: Decodable {
     }
 }
 
-struct URLs: Decodable {
+extension MainPhotoDTO: Hashable {
+    static func == (lhs: MainPhotoDTO, rhs: MainPhotoDTO) -> Bool {
+        lhs.id == rhs.id
+    }
+}
+
+struct URLs: Decodable, Hashable {
     let raw: String
     let full: String
     let regular: String
