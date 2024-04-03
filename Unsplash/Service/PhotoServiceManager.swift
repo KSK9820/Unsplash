@@ -64,8 +64,8 @@ final class PhotoServiceManager {
         }
     }
     
-    func getSearchPhotoList(keyword: String, completion: @escaping (Result<SearchPhotoDTO, Error>) -> Void) {
-        guard let request = UnsplashRequest.search(keyword: keyword).asURLRequest() else {
+    func getSearchPhotoList(keyword: String, page: String, completion: @escaping (Result<SearchPhotoDTO, Error>) -> Void) {
+        guard let request = UnsplashRequest.search(keyword: keyword, page: page).asURLRequest() else {
             return completion(.failure(ConvertError.urlRequestError))
         }
         
