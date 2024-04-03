@@ -25,8 +25,6 @@ final class DetailImageView: UIImageView {
     // MARK: - internal method
 
     func setContents(_ urlString: String) {
-        guard let url = URL(string: urlString) else { return }
-        
         imageConverter.getImage(urlString: urlString) { [weak self] result in
             switch result {
             case .success(let data):
