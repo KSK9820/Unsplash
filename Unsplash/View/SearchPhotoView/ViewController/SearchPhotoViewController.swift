@@ -32,8 +32,9 @@ final class SearchPhotoViewController: UIViewController {
         
         searchBar.delegate = self
         
-        let layout = TwoColumnCollectionViewLayout()
+        let layout = SearchPhotoCollectionViewLayout()
         layout.delegate = self
+        
         collectionView.collectionViewLayout = layout
     }
     
@@ -58,7 +59,7 @@ final class SearchPhotoViewController: UIViewController {
         viewModel.searchResult.bind { [weak self] searchResult in
             if let result = searchResult?.results {
                 DispatchQueue.main.async {
-                    self?.collectionView.saveSnapshot(result, section: .result)
+                    self?.collectionView.saveSnapshot(keyword: [], image: result)
                 }
             }
         }
@@ -81,8 +82,8 @@ extension SearchPhotoViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let keyword = searchBar.text {
             viewModel.getSearchResult(keyword, page: "1")
+            viewModel.saveSearchKeyword(keyword)
         }
-        
         searchBar.endEditing(true)
     }
 }

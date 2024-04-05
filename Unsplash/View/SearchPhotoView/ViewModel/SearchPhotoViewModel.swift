@@ -12,6 +12,8 @@ final class SearchPhotoViewModel {
     private let serviceManager = PhotoServiceManager()
     
     private(set) var searchResult = Binding<SearchPhotoDTO?>(nil)
+    private(set) var seearchKeyword = Binding<[String]>([])
+    
     
     // MARK: - internal method
 
@@ -20,7 +22,6 @@ final class SearchPhotoViewModel {
             switch result {
             case .success(let data):
                 self?.searchResult.value = data
-                print(data)
             case .failure(let error):
                 print(error)
             }
@@ -34,5 +35,9 @@ final class SearchPhotoViewModel {
         let height = image.height
         
         return CGFloat(height * Int(viewWidth / 2) / width)
+    }
+    
+    func saveSearchKeyword(_ keyword: String) {
+        seearchKeyword.value.append(keyword)
     }
 }

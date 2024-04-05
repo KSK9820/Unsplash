@@ -1,5 +1,5 @@
 //
-//  TwoColumnCollectionViewLayout.swift
+//  MainPhotoCollectionViewLayout.swift
 //  Unsplash
 //
 //  Created by 김수경 on 2024/03/15.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class TwoColumnCollectionViewLayout: UICollectionViewLayout {
+final class MainPhotoCollectionViewLayout: UICollectionViewLayout {
     
     weak var delegate: ListCollectinoViewLayoutDelegate?
     

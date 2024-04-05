@@ -30,7 +30,7 @@ final class MainPhotoViewController: UIViewController {
     private func setUI() {
         view.backgroundColor = .white
         
-        let layout = TwoColumnCollectionViewLayout()
+        let layout = MainPhotoCollectionViewLayout()
         layout.delegate = self
         recentCollectionView.collectionViewLayout = layout
         
