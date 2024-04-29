@@ -19,7 +19,6 @@ final class SearchPhotoCollectionViewLayout: UICollectionViewLayout {
         return collectionView.numberOfSections
     }
     
-    
     private let numberOfColumns = 2
     private let cellPadding: CGFloat = 4
     
@@ -51,8 +50,8 @@ final class SearchPhotoCollectionViewLayout: UICollectionViewLayout {
     override func prepare() {
         guard let collectionView = collectionView else { return }
         
-        
         for section in 0..<numberOfSections {
+            // 최근 검색어
             if section == 0 {
                 // header view
                 let headerAttribute = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, with: IndexPath(item: 0, section: section))
@@ -72,7 +71,7 @@ final class SearchPhotoCollectionViewLayout: UICollectionViewLayout {
                 
                 for item in 0..<collectionView.numberOfItems(inSection: section) {
                     let indexPath = IndexPath(item: item, section: section)
-                    let height = cellPadding * 2 + 30
+                    let height = cellPadding * 2 + 50
                     let frame = CGRect(x: xOffset[column],
                                        y: yOffset[column],
                                        width: columnWidth,
@@ -94,7 +93,7 @@ final class SearchPhotoCollectionViewLayout: UICollectionViewLayout {
                 // header view
                 let headerAttribute = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, with: IndexPath(item: 0, section: section))
                 
-                headerAttribute.frame = CGRect(x: 0, y: 0, width: collectionView.frame.width, height: headerHeight)
+                headerAttribute.frame = CGRect(x: 0, y: max(yOffset[0], yOffset[1]) + 20, width: collectionView.frame.width, height: headerHeight)
                 headerAttributesCache.append(headerAttribute)
                 
                 // cell view
@@ -106,7 +105,7 @@ final class SearchPhotoCollectionViewLayout: UICollectionViewLayout {
                     xOffset.append(CGFloat(column) * columnWidth)
                 }
                 
-                var column = yOffset.isEmpty ? 0: (yOffset[0] > yOffset[1] ? 1 : 0)
+                var column = yOffset.isEmpty ? 0 : (yOffset[0] > yOffset[1] ? 1 : 0)
                 //            let currentIndex = itemAttributeCache.count
                 
                 for item in 0..<collectionView.numberOfItems(inSection: section) {
@@ -114,10 +113,19 @@ final class SearchPhotoCollectionViewLayout: UICollectionViewLayout {
                     let photoHeight = delegate?.collectionView(collectionView,
                                                                heightForPhotoAtIndexPath: indexPath) ?? columnWidth
                     let height = cellPadding * 2 + photoHeight
-                    let frame = CGRect(x: xOffset[column],
+                    
+                    var frame = CGRect()
+                    if item == 0 {
+                        frame = CGRect(x: xOffset[column],
+                                       y: max(yOffset[0], yOffset[1]) + headerHeight + 20,
+                                       width: columnWidth,
+                                       height: height)
+                    } else {
+                        frame = CGRect(x: xOffset[column],
                                        y: yOffset[column],
                                        width: columnWidth,
                                        height: height)
+                    }
                     let insetFrame = frame.insetBy(dx: cellPadding, dy: cellPadding)
                     
                     let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
@@ -126,8 +134,13 @@ final class SearchPhotoCollectionViewLayout: UICollectionViewLayout {
                     itemAttributeCache[section].append(attributes)
                     
                     contentHeight = max(contentHeight, frame.maxY)
-                    yOffset[column] = yOffset[column] + height
-                    
+                    if item == 0 {
+                        yOffset[0] = max(yOffset[0], yOffset[1]) + headerHeight + 20 
+                        yOffset[1] = yOffset[0]
+                    } else {
+                        yOffset[column] = yOffset[column]
+                    }
+                    yOffset[column] += height
                     column = yOffset[0] > yOffset[1] ? 1 : 0
                 }
             }
