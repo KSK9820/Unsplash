@@ -1,5 +1,5 @@
 //
-//  MainPhotoHeaderView.swift
+//  CollectionViewHeaderView.swift
 //  Unsplash
 //
 //  Created by 김수경 on 2024/03/21.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class MainPhotoHeaderView: UICollectionReusableView, ReuseIdentifiable {
+final class CollectionViewHeaderView: UICollectionReusableView, ReuseIdentifiable {
 
     private let headerTitle: UILabel = {
         let label = UILabel()
@@ -36,7 +36,7 @@ final class MainPhotoHeaderView: UICollectionReusableView, ReuseIdentifiable {
     
     // MARK: - internal method
     
-    func setTitle(with title: String) {
+    func setTitle(with title: String?) {
         headerTitle.text = title
     }
 

@@ -1,5 +1,5 @@
 //
-//  RecentImageCollectionViewCell.swift
+//  ImageCollectionViewCell.swift
 //  Unsplash
 //
 //  Created by 김수경 on 2024/03/12.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class RecentImageCollectionViewCell: UICollectionViewCell, ReuseIdentifiable {
+final class ImageCollectionViewCell: UICollectionViewCell, ReuseIdentifiable {
     
     private let imageConverter = ImageConverter()
     private let imageView: UIImageView = {

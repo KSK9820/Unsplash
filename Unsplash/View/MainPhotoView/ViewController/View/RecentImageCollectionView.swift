@@ -23,8 +23,8 @@ final class RecentImageCollectionView: UICollectionView {
     // MARK: - private method
     
     private func configureUI() {
-        self.register(MainPhotoHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: MainPhotoHeaderView.reuseIdentifier)
-        self.register(RecentImageCollectionViewCell.self, forCellWithReuseIdentifier: RecentImageCollectionViewCell.reuseIdentifier)
+        self.register(CollectionViewHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CollectionViewHeaderView.reuseIdentifier)
+        self.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: ImageCollectionViewCell.reuseIdentifier)
         self.translatesAutoresizingMaskIntoConstraints = false
     }
 

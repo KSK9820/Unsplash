@@ -19,12 +19,12 @@ final class PhotoServiceManager {
     // MARK: - internal method
     // MARK: - UnsplashRequest 전용 메서드
     
-    func getRecentPhotoList(page: String, completion: @escaping (Result<[MainPhotoDTO], Error>) -> Void) {
+    func getRecentPhotoList(page: String, completion: @escaping (Result<[MainPhotoResponse], Error>) -> Void) {
         guard let request = UnsplashRequest.main(page: page).asURLRequest() else {
             return completion(.failure(ConvertError.urlRequestError))
         }
         
-        getData(request: request) { (result: Result<[MainPhotoDTO], Error>) in
+        getData(request: request) { (result: Result<[MainPhotoResponse], Error>) in
             switch result {
             case .success(let data):
                 completion(.success(data))
@@ -34,12 +34,12 @@ final class PhotoServiceManager {
         }
     }
     
-    func getDetailPhoto(id: String, completion: @escaping (Result<DetailPhotoDTO, Error>) -> Void) {
+    func getDetailPhoto(id: String, completion: @escaping (Result<DetailPhotoResponse, Error>) -> Void) {
         guard let request = UnsplashRequest.detail(id: id).asURLRequest() else {
             return completion(.failure(ConvertError.urlRequestError))
         }
         
-        getData(request: request) { (result: Result<DetailPhotoDTO, Error>) in
+        getData(request: request) { (result: Result<DetailPhotoResponse, Error>) in
             switch result {
             case .success(let data):
                 completion(.success(data))
@@ -55,6 +55,21 @@ final class PhotoServiceManager {
         }
         
         getData(request: request) { (result: Result<DownloadPhotoDTO, Error>) in
+            switch result {
+            case .success(let data):
+                completion(.success(data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    func getSearchPhotoList(keyword: String, page: String, completion: @escaping (Result<SearchResponse, Error>) -> Void) {
+        guard let request = UnsplashRequest.search(keyword: keyword, page: page).asURLRequest() else {
+            return completion(.failure(ConvertError.urlRequestError))
+        }
+        
+        getData(request: request) { (result: Result<SearchResponse, Error>) in
             switch result {
             case .success(let data):
                 completion(.success(data))

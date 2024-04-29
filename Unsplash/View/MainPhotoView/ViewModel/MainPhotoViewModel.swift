@@ -11,7 +11,7 @@ final class MainPhotoViewModel: PhotoViewModelProtocol {
     
     private let serviceManager = PhotoServiceManager()
     
-    private(set) var photoInformation = Binding<[MainPhotoDTO]>([])
+    private(set) var photoInformation = Binding<[MainPhotoResponse]>([])
     private var currentPage = 0
     private var totalPage = 1
     
