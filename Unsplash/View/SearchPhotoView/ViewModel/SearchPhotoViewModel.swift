@@ -11,13 +11,13 @@ final class SearchPhotoViewModel {
     
     private let serviceManager = PhotoServiceManager()
     
-    private(set) var searchResult = Binding<SearchPhotoDTO?>(nil)
-    private(set) var seearchKeyword = Binding<[String]>([])
+    private(set) var searchResult = Binding<SearchResponse?>(nil)
+    private(set) var searchKeyword = Binding<[String]>([])
     
     
     // MARK: - internal method
 
-    func getSearchResult(_ keyword: String, page: String) {
+    func searchKeywordImage(_ keyword: String, page: String) {
         serviceManager.getSearchPhotoList(keyword: keyword, page: page) { [weak self] result in
             switch result {
             case .success(let data):
@@ -38,6 +38,6 @@ final class SearchPhotoViewModel {
     }
     
     func saveSearchKeyword(_ keyword: String) {
-        seearchKeyword.value.append(keyword)
+        searchKeyword.value.append(keyword)
     }
 }

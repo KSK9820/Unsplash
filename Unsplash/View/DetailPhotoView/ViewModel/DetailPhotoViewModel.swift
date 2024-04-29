@@ -16,7 +16,7 @@ final class DetailPhotoViewModel {
     private(set) var bottomStackDataViewModel = Binding<DetailBottomStackDataViewModel?>(nil)
     private(set) var downloadURL = Binding<String?>(nil)
     
-    private(set) var photoInformation: DetailPhotoDTO?
+    private(set) var photoInformation: DetailPhotoResponse?
     
     
     // MARK: - internal method

@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct DetailPhotoDTO: Decodable {
+struct DetailPhotoResponse: Decodable {
     let id: String
     let width: Int
     let height: Int
     let description: String?
     let altDescription: String?
-    let urls: URLs
+    let urls: ImageURLs
     let links: Link
     let tags: [Tag]
     let user: User
