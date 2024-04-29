@@ -110,8 +110,8 @@ extension MainPhotoViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
-            guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderView.reuseIdentifier, for: indexPath) as? HeaderView else {
-                return HeaderView()
+            guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionViewHeaderView.reuseIdentifier, for: indexPath) as? CollectionViewHeaderView else {
+                return CollectionViewHeaderView()
             }
             
             headerView.setTitle(with: "최신 이미지")
@@ -139,7 +139,7 @@ extension MainPhotoViewController: UICollectionViewDataSourcePrefetching {
 
 // MARK: - Recent Photo Layout Delegate method
 
-extension MainPhotoViewController: ListCollectinoViewLayoutDelegate {
+extension MainPhotoViewController: TwoColumnCollectionViewLayoutDelegate {
     
     func collectionView(_ collectionView: UICollectionView,
                         heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {

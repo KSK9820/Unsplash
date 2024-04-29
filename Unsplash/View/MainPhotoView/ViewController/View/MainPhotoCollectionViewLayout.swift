@@ -9,7 +9,7 @@ import UIKit
 
 final class MainPhotoCollectionViewLayout: UICollectionViewLayout {
     
-    weak var delegate: ListCollectinoViewLayoutDelegate?
+    weak var delegate: TwoColumnCollectionViewLayoutDelegate?
     
     private let numberOfColumns = 2
     private let cellPadding: CGFloat = 4

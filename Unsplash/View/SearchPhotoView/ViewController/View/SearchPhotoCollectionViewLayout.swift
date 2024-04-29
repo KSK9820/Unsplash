@@ -9,7 +9,7 @@ import UIKit
 
 final class SearchPhotoCollectionViewLayout: UICollectionViewLayout {
     
-    weak var delegate: ListCollectinoViewLayoutDelegate?
+    weak var delegate: TwoColumnCollectionViewLayoutDelegate?
     
     private var numberOfSections: Int {
         guard let collectionView = collectionView else {
